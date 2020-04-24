@@ -33,7 +33,7 @@ public class Employee_info_Servlet extends HttpServlet {
 		// TODO 必須機能「趣味参照機能」
 		// アクセス元のHTMLでitemCdに設定された値を取得して、String型の変数itemCdに代入
 		String shainId = request.getParameter("shainId");
-		System.out.println("shainId=" + shainId);
+		//System.out.println("shainId=" + shainId);
 
 		// JDBCドライバの準備
 		try {
@@ -55,8 +55,8 @@ public class Employee_info_Servlet extends HttpServlet {
 //		String sql ="select ef.EMPID ,ef.NAME " +
 //					"from DEPART_KBN dk,EMP_INFO ef " +
 //					"where 1=1,and dk.DEPARTID = ef.DEPARTID and ef.EMPID = 'EMP0001'" +
-//					"order by  ef.EMPID; "  ;
-
+//					"order by  ef.EMPID ";
+//
 		String sql = "select \n" +
 				"ef.EMPID ee \n" +
 				",ef.NAME en \n" +
@@ -65,7 +65,7 @@ public class Employee_info_Servlet extends HttpServlet {
 				",EMP_INFO ef \n" +
 				"where 1=1 \n" +
 				"and dk.DEPARTID = ef.DEPARTID \n" +
-				"and ef.EMPID = 'EMP0001'  \n" +
+				"and ef.EMPID = 'EMP0002'  \n" +
 				"order by  \n" +
 				"ef.EMPID \n" +
 				" \n";
@@ -101,7 +101,6 @@ public class Employee_info_Servlet extends HttpServlet {
 				empList.add(e1);
 				System.out.println(e1.getEmpId());
 				System.out.println(e1.getEmpName());
-
 
 //				h1.setHobby(rs1.getString("mhn")); // SQL文のエイリアス
 //				h1.setHobbyCategory(rs1.getString("mcn"));// Item型の変数itemに商品名をセット

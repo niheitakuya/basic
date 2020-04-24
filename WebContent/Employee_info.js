@@ -26,8 +26,8 @@ function executeAjax () {
 			// $('#hobbyTable').append('<tr>'+'<td>'+pwhobby.hobbyCategory+'</td>'+'</tr>');
 		 	// $('#hobbyTable').append('<td>'+pwhobby.hobby+'</td>'+'</tr>');
 				//$('#hobbyTable').append('<td>'+i+1+'</td>');
-				$('#empTable').append('<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+'ああああ'+'</td>'+ '<td>'+'いいいいい'+'</td>'+ '</tr>');
-
+				$('#empTable').append('<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+pwemp.empId+'</td>'+ '<td>'+pwemp.empName+'</td>'+ '</tr>');
+			//	$('#empTable').append('<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+'kkk'+'</td>'+ '<td>'+'rrrr'+'</td>'+ '</tr>');
 				//$('#hobbyTable').append('<tr>'+'</tr>');
 
 

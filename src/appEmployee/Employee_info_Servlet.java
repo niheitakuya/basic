@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebServlet("/appEmployee/Employee_info_Servlet")
+@WebServlet("/a")
 public class Employee_info_Servlet extends HttpServlet {
 
 	/********************************************************************************
@@ -39,7 +39,7 @@ public class Employee_info_Servlet extends HttpServlet {
 		try {
 
 			// JDBCドライバのロード
-			Class.forName("H2 Database");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 
 		} catch (ClassNotFoundException e) {
 			// ドライバが設定されていない場合はエラーになります
@@ -52,9 +52,14 @@ public class Employee_info_Servlet extends HttpServlet {
 		String pass = "webapp";
 
 		// 実行するSQL文
-		String sql ="select \n" +
-				"ef.EMPID \n" +
-				",ef.NAME \n" +
+//		String sql ="select ef.EMPID ,ef.NAME " +
+//					"from DEPART_KBN dk,EMP_INFO ef " +
+//					"where 1=1,and dk.DEPARTID = ef.DEPARTID and ef.EMPID = 'EMP0001'" +
+//					"order by  ef.EMPID; "  ;
+
+		String sql = "select \n" +
+				"ef.EMPID ee \n" +
+				",ef.NAME en \n" +
 				"from \n" +
 				"DEPART_KBN dk \n" +
 				",EMP_INFO ef \n" +
@@ -63,9 +68,12 @@ public class Employee_info_Servlet extends HttpServlet {
 				"and ef.EMPID = 'EMP0001'  \n" +
 				"order by  \n" +
 				"ef.EMPID \n" +
-				"; \n" ;
+				" \n";
+
+		//System.out.println(sql);
 
 
+		//リストの作成
 		List <emp> empList =  new ArrayList<>();
 
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
@@ -78,7 +86,8 @@ public class Employee_info_Servlet extends HttpServlet {
 				Statement stmt = con.createStatement();
 
 				// SQLの命令文を実行し、その結果をResultSet型のrsに代入します
-				ResultSet rs1 = stmt.executeQuery(sql);) {
+				ResultSet rs1 = stmt.executeQuery(sql);
+				) {
 			    // SQL実行後の処理内容
 
 			// SQL実行結果を保持している変数rsから商品情報を取得
@@ -86,8 +95,12 @@ public class Employee_info_Servlet extends HttpServlet {
 			// 次の行がないときはfalseになります
 			while (rs1.next()) {
 				emp e1 = new emp();
-				System.out.println(e1);
-
+				//System.out.println(e1);
+				e1.setEmpId(rs1.getString("ee"));
+				e1.setEmpName(rs1.getString("en"));
+				empList.add(e1);
+				System.out.println(e1.getEmpId());
+				System.out.println(e1.getEmpName());
 
 
 //				h1.setHobby(rs1.getString("mhn")); // SQL文のエイリアス
@@ -101,11 +114,13 @@ public class Employee_info_Servlet extends HttpServlet {
 
 		// アクセスした人に応答するためのJSONを用意する
 
-		PrintWriter pw = response.getWriter();
+		PrintWriter pw = response.getWriter();//出力ストリーム
 		// JSONで出力する
 		pw.append(new ObjectMapper().writeValueAsString(empList));
 		// -- ここまで --
 	}
+
+
 
 
 
@@ -117,4 +132,4 @@ public class Employee_info_Servlet extends HttpServlet {
 		// -- ここまで --
 	}
 
-}
+}//最終

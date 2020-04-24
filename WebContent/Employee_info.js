@@ -4,8 +4,8 @@ function executeAjax () {
 
 	// ?以降のパラメータを取得
 	// 今回で言うとhttp://localhost:8080/wt1/hobby.html?q=0001でいう0001が取得される
-	var p  = location.search.substring( 1, location.search.length );
-	parameter = decodeURIComponent( p );
+	var parameter  = location.search.substring( 1, location.search.length );
+	parameter = decodeURIComponent( parameter );
 	parameter = parameter.split('=')[1];
 
 	// --------------- TODO 編集ここから---------------
@@ -14,19 +14,19 @@ function executeAjax () {
 	};
 	$.ajax({
 		Type : 'GET',
-		url : '/wt2/api/hobby',//サーブレットを確認
+		url : '/Employee_info/a',//サーブレットを確認
 		dataType : 'json',
 		data : requestQuery,
 		success : function(pw) {
 			console.log(pw);
 
 			for(var i = 0;i<pw.length; i++){
-				var pwhobby = pw[i];
+				var pwemp = pw[i];
 
 			// $('#hobbyTable').append('<tr>'+'<td>'+pwhobby.hobbyCategory+'</td>'+'</tr>');
 		 	// $('#hobbyTable').append('<td>'+pwhobby.hobby+'</td>'+'</tr>');
 				//$('#hobbyTable').append('<td>'+i+1+'</td>');
-				$('#hobbyTable').append('<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+pwhobby.hobbyCategory+'</td>'+ '<td>'+pwhobby.hobby+'</td>'+ '</tr>');
+				$('#empTable').append('<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+'ああああ'+'</td>'+ '<td>'+'いいいいい'+'</td>'+ '</tr>');
 
 				//$('#hobbyTable').append('<tr>'+'</tr>');
 

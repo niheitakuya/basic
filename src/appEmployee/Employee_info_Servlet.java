@@ -65,7 +65,7 @@ public class Employee_info_Servlet extends HttpServlet {
 				",EMP_INFO ef \n" +
 				"where 1=1 \n" +
 				"and dk.DEPARTID = ef.DEPARTID \n" +
-				"and ef.EMPID = 'EMP0002'  \n" +
+				//"and ef.EMPID = 'EMP0002'  \n" +
 				"order by  \n" +
 				"ef.EMPID \n" +
 				" \n";

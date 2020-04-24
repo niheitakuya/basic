@@ -22,11 +22,19 @@ function executeAjax () {
 
 			for(var i = 0;i<pw.length; i++){
 				var pwemp = pw[i];
+				//var a = onclick= "location.href='./Employee_info_search.html' "
+				var edit ='<td><button type="button"   >編集</button></td>'
+				var del= ' <td><button type="button"  >削除</button></td>'
+				//$('#empTable').append('<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+pwemp.empId+'</td>' +'<td>'+pwemp.empName+'</td>' +'</tr>');
+				$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
 
-			// $('#hobbyTable').append('<tr>'+'<td>'+pwhobby.hobbyCategory+'</td>'+'</tr>');
+
+
+
+				// $('#hobbyTable').append('<tr>'+'<td>'+pwhobby.hobbyCategory+'</td>'+'</tr>');
 		 	// $('#hobbyTable').append('<td>'+pwhobby.hobby+'</td>'+'</tr>');
 				//$('#hobbyTable').append('<td>'+i+1+'</td>');
-				$('#empTable').append('<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+pwemp.empId+'</td>'+ '<td>'+pwemp.empName+'</td>'+ '</tr>');
+
 			//	$('#empTable').append('<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+'kkk'+'</td>'+ '<td>'+'rrrr'+'</td>'+ '</tr>');
 				//$('#hobbyTable').append('<tr>'+'</tr>');
 

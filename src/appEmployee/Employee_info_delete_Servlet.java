@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebServlet("/a")
-public class Employee_info_Servlet extends HttpServlet {
+@WebServlet("/b")
+public class Employee_info_delete_Servlet extends HttpServlet {
 
 	/********************************************************************************
 	 * 以下のdoGet/doPostを実装して下さい。
@@ -52,23 +51,18 @@ public class Employee_info_Servlet extends HttpServlet {
 		String pass = "webapp";
 
 		// 実行するSQL文
-//		String sql ="select ef.EMPID ,ef.NAME " +
-//					"from DEPART_KBN dk,EMP_INFO ef " +
-//					"where 1=1,and dk.DEPARTID = ef.DEPARTID and ef.EMPID = 'EMP0001'" +
-//					"order by  ef.EMPID ";
-//
-		String sql = "select \n" +
-				"ef.EMPID ee \n" +
-				",ef.NAME en \n" +
-				"from \n" +
-				"DEPART_KBN dk \n" +
-				",EMP_INFO ef \n" +
-				"where 1=1 \n" +
-				"and dk.DEPARTID = ef.DEPARTID \n" +
-				//"and ef.EMPID = 'EMP0002'  \n" +
-				"order by  \n" +
-				"ef.EMPID \n" +
-				" \n";
+
+		String sql_delete = "delete from EMP_INFO " +
+				"where EMPID = 'EMP0002'; " +
+				"commit" ;
+		
+		String sql ="select ef.EMPID ,ef.NAME " +
+				"from DEPART_KBN dk,EMP_INFO ef " +
+				"where 1=1,and dk.DEPARTID = ef.DEPARTID and ef.EMPID = 'EMP0001'" +
+				"order by  ef.EMPID ";
+
+
+
 
 		//System.out.println(sql);
 
@@ -81,12 +75,48 @@ public class Employee_info_Servlet extends HttpServlet {
 		try (
 				// データベースへ接続します
 				Connection con = DriverManager.getConnection(url, user, pass);
+				//Statement stmt = con.createStatement();
+				
+				PreparedStatement ps = con.prepareStatement(sql_delete);
+				int i = ps.executeUpdate();
+				
+				//ps.setInt(1, 1);
+				
+				//実行するSQL文　Delete
+				
+
+//				int  num = stmt.executeUpdate(sql_delete);
+//				ResultSet rs1 = stmt.executeQuery(sql);
+
+				
+				
+				
+				
+				
+				
+				
 
 				// SQLの命令文を実行するための準備をおこないます
-				Statement stmt = con.createStatement();
+				//Statement stmt = con.createStatement();
+				//PreparedStatement ps = con.prepareStatement(sql_delete);
 
+
+
+				//PreparedStatement stmt = createStatement();
+				// ps.setInt(1,1);
 				// SQLの命令文を実行し、その結果をResultSet型のrsに代入します
-				ResultSet rs1 = stmt.executeQuery(sql);
+			//	PreparedStatement ps = null;
+
+				//PreparedStatement ps = con.prepareStatement(sql_delete);
+
+
+
+
+
+				//ResultSet rs2 = stmt.executeQuery(sql_delete);
+			//	int rs1 = stmt.executeUpdate();
+//				ResultSet rs2 = stmt.executeQuery(sql_delete);
+
 				) {
 			    // SQL実行後の処理内容
 
@@ -115,7 +145,6 @@ public class Employee_info_Servlet extends HttpServlet {
 
 		PrintWriter pw = response.getWriter();//出力ストリーム
 		// JSONで出力する
-		//pw.println("a");
 		pw.append(new ObjectMapper().writeValueAsString(empList));
 		// -- ここまで --
 	}

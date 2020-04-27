@@ -26,15 +26,17 @@ public class DatabaseTest5 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException{
 
-        response.setContentType("text/html; charset=Shift_JIS");
+    	String empnum = request.getParameter("pwemp.empId");
+    	//System.out.println(empnum);
+
+
+
+    	response.setContentType("text/html; charset=Shift_JIS");
         PrintWriter out = response.getWriter();
         List <emp> empList =  new ArrayList<>();
 
-//        out.println("<html>");
-//        out.println("<head>");
-//        out.println("<title>データベーステスト</title>");
-//        out.println("</head>");
-//        out.println("<body>");
+
+
 
         Connection con = null;
         String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -48,16 +50,11 @@ public class DatabaseTest5 extends HttpServlet {
 
             Statement stmt = con.createStatement();
 
-
-
-            // String sql_delete ="delete from EMP_INFO \n where  EMPID = 'EMP0002';commit ";
-               String sql_delete ="delete from EMP_INFO \n where  EMPID = 'EMP0002' ";
-             //なぜcommitがいならいのか？？
+            String sql_delete ="delete from EMP_INFO \n where  EMPID = 'EMP0002' ";
+         //   String sql_delete ="delete from EMP_INFO ";
 
 
               int num = stmt.executeUpdate(sql_delete);
-//
-
 
                       String sql = "select \n" +
 				                    "ef.EMPID ee \n" +
@@ -74,16 +71,13 @@ public class DatabaseTest5 extends HttpServlet {
 
                       ResultSet rs1 = stmt.executeQuery(sql);
 
-
-
-
             while (rs1.next()) {
 				emp e1 = new emp();
 				//System.out.println(e1);
 				e1.setEmpId(rs1.getString("ee"));
 				e1.setEmpName(rs1.getString("en"));
 				empList.add(e1);
-				//System.out.println(e1.getEmpId());
+				System.out.println(e1.getEmpId());
 				System.out.println(e1.getEmpName());
             }
 

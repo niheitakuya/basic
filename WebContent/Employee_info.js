@@ -19,13 +19,16 @@ function executeAjax () {
 		data : requestQuery,
 		success : function(pw) {
 			console.log(pw);
-
+			var pwemp = null;
 			for(var i = 0;i<pw.length; i++){
-				var pwemp = pw[i];
+				 pwemp = pw[i];
 				var edit ='<td><input type="button">編集</input></td>'
-				var del= ' <td><input type="button" class = "js-delete-button" onclick ="deleteEmp()"  >削除</input></td>'
+				var del= ' <td><input type="button" value="削除"   class = "js-delete-button" onclick = "deleteEmp()"  >削除</input></td>'
 				$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
+				console.log(pwemp.empId);
+				//console.log(input[i]);
 			}
+			//console.log(pwemp.empId);
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
@@ -37,13 +40,13 @@ function executeAjax () {
 }
 
 
-function test(){
-	console.log('a');
-}
+//function test(){
+//	console.log('a');
+//}
 
-//var deleteEmp = function(){
+
 	function deleteEmp(){
-		console.log('ab');
+		//console.log('ab');
 'use strict';
 	$.ajax({
 		Type : 'GET',
@@ -56,11 +59,11 @@ function test(){
 			//$('#empTable').empty();
 			for(var i = 0;i<pw.length; i++){
 				var pwemp = pw[i];
+				console.log(pwemp);
 				var edit ='<td><button type="button"   >編集</button></td>'
 				var del= ' <td><input type="button" class = "js-delete-button" >削除</inuput></td>'
 				$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
 				}
-
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
@@ -70,11 +73,10 @@ function test(){
 	});
 }//var deleteEmp = functionの最後
 
-$(document).ready(function () {
-	'use strict';
-
-	$('.js-delete-button').click(deleteEmp);
-});
+//$(document).ready(function () {
+//	'use strict';
+//	$('.js-delete-button').click(deleteEmp);
+//});
 
 
 
@@ -83,9 +85,6 @@ $(document).ready(function () {
 
 	// 初期表示用
 	executeAjax();
-
-	// 更新ボタンにイベント設定
-	$('#searchBtn').bind('click',executeAjax);
 
 });
 

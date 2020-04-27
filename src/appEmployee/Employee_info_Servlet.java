@@ -120,11 +120,6 @@ public class Employee_info_Servlet extends HttpServlet {
 		// -- ここまで --
 	}
 
-
-
-
-
-
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		// TODO 任意機能「趣味投稿機能に挑戦する場合はこちらを利用して下さい」

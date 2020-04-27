@@ -22,24 +22,44 @@ function executeAjax () {
 
 			for(var i = 0;i<pw.length; i++){
 				var pwemp = pw[i];
-				//var a = onclick= "location.href='./Employee_info_search.html' "
-				var edit ='<td><button type="button"   >編集</button></td>'
-				var del= ' <td><button type="button"  >削除</button></td>'
-				//$('#empTable').append('<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+pwemp.empId+'</td>' +'<td>'+pwemp.empName+'</td>' +'</tr>');
+				var edit ='<td><input type="button">編集</input></td>'
+				var del= ' <td><input type="button" class = "js-delete-button" onclick ="deleteEmp()"  >削除</input></td>'
 				$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
-
-
-
-
-				// $('#hobbyTable').append('<tr>'+'<td>'+pwhobby.hobbyCategory+'</td>'+'</tr>');
-		 	// $('#hobbyTable').append('<td>'+pwhobby.hobby+'</td>'+'</tr>');
-				//$('#hobbyTable').append('<td>'+i+1+'</td>');
-
-			//	$('#empTable').append('<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+'kkk'+'</td>'+ '<td>'+'rrrr'+'</td>'+ '</tr>');
-				//$('#hobbyTable').append('<tr>'+'</tr>');
-
-
 			}
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			// サーバーとの通信に失敗した時の処理
+			alert('データの通信に失敗しました');
+			console.log(errorThrown)
+		}
+	});
+	// ---------------ここまで---------------
+}
+
+
+function test(){
+	console.log('a');
+}
+
+//var deleteEmp = function(){
+	function deleteEmp(){
+		console.log('ab');
+'use strict';
+	$.ajax({
+		Type : 'GET',
+		url : '/Employee_info/DatabaseTest5',//サーブレットを確認
+		dataType : 'json',
+		//data : requestQuery,
+		success : function(pw) {
+			console.log(pw);
+
+			//$('#empTable').empty();
+			for(var i = 0;i<pw.length; i++){
+				var pwemp = pw[i];
+				var edit ='<td><button type="button"   >編集</button></td>'
+				var del= ' <td><input type="button" class = "js-delete-button" >削除</inuput></td>'
+				$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
+				}
 
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -48,15 +68,15 @@ function executeAjax () {
 			console.log(errorThrown)
 		}
 	});
+}//var deleteEmp = functionの最後
+
+$(document).ready(function () {
+	'use strict';
+
+	$('.js-delete-button').click(deleteEmp);
+});
 
 
-
-
-
-
-	// ---------------ここまで---------------
-
-}
 
 $(document).ready(function () {
 	'use strict';
@@ -68,3 +88,48 @@ $(document).ready(function () {
 	$('#searchBtn').bind('click',executeAjax);
 
 });
+
+
+//---------------ここから削除機能---------------
+//var deleteEmp = function(){
+//	'use strict';
+//	cconsole.log('aaaa');
+//
+//
+//	$.ajax({
+//		Type : 'GET',
+//		url : '/Employee_info/DatabaseTest5',//サーブレットを確認
+//		dataType : 'json',
+//		data : requestQuery,
+//		success : function(pw) {
+//			console.log(pw);
+//
+//			for(var i = 0;i<pw.length; i++){
+//				var pwemp = pw[i];
+//				var edit ='<td><button type="button"   >編集</button></td>'
+//				var del= ' <td><button type="button" class = "js-delete-button" >削除</button></td>'
+//				$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
+//				}
+//
+//		},
+//		error : function(XMLHttpRequest, textStatus, errorThrown) {
+//			// サーバーとの通信に失敗した時の処理
+//			alert('データの通信に失敗しました');
+//			console.log(errorThrown)
+//		}
+//	});
+//}//var deleteEmp = functionの最後
+//
+//$(document).ready(function () {
+//	'use strict';
+//
+//	$('.js-delete-button').click(deleteEmp);
+//});
+//
+//
+//
+//
+//
+//
+//
+//

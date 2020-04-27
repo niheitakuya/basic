@@ -55,7 +55,7 @@ public class Employee_info_delete_Servlet extends HttpServlet {
 		String sql_delete = "delete from EMP_INFO " +
 				"where EMPID = 'EMP0002'; " +
 				"commit" ;
-		
+
 		String sql ="select ef.EMPID ,ef.NAME " +
 				"from DEPART_KBN dk,EMP_INFO ef " +
 				"where 1=1,and dk.DEPARTID = ef.DEPARTID and ef.EMPID = 'EMP0001'" +
@@ -76,25 +76,25 @@ public class Employee_info_delete_Servlet extends HttpServlet {
 				// データベースへ接続します
 				Connection con = DriverManager.getConnection(url, user, pass);
 				//Statement stmt = con.createStatement();
-				
+
 				PreparedStatement ps = con.prepareStatement(sql_delete);
 				int i = ps.executeUpdate();
-				
+
 				//ps.setInt(1, 1);
-				
+
 				//実行するSQL文　Delete
-				
+
 
 //				int  num = stmt.executeUpdate(sql_delete);
 //				ResultSet rs1 = stmt.executeQuery(sql);
 
-				
-				
-				
-				
-				
-				
-				
+
+
+
+
+
+
+
 
 				// SQLの命令文を実行するための準備をおこないます
 				//Statement stmt = con.createStatement();

@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @WebServlet("/DatabaseTest5")
 public class DatabaseTest5 extends HttpServlet {
@@ -26,6 +28,7 @@ public class DatabaseTest5 extends HttpServlet {
 
         response.setContentType("text/html; charset=Shift_JIS");
         PrintWriter out = response.getWriter();
+        List <emp> empList =  new ArrayList<>();
 
 //        out.println("<html>");
 //        out.println("<head>");
@@ -71,7 +74,7 @@ public class DatabaseTest5 extends HttpServlet {
 
                       ResultSet rs1 = stmt.executeQuery(sql);
 
-                      List <emp> empList =  new ArrayList<>();
+
 
 
             while (rs1.next()) {
@@ -102,8 +105,7 @@ public class DatabaseTest5 extends HttpServlet {
                 out.println("SQLException:" + e.getMessage());
             }
         }
+        out.append(new ObjectMapper().writeValueAsString(empList));
 
-       // out.println("</body>");
-        //out.println("</html>");
     }
 }

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class DatabaseTest5 extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException{
-
+    	String testNo = request.getParameter("rgp");
     	String empnum = request.getParameter("pwemp.empId");
     	//System.out.println(empnum);
 
@@ -50,11 +49,12 @@ public class DatabaseTest5 extends HttpServlet {
 
             Statement stmt = con.createStatement();
 
-            String sql_delete ="delete from EMP_INFO \n where  EMPID = 'EMP0002' ";
-         //   String sql_delete ="delete from EMP_INFO ";
+          //  String sql_delete ="delete from EMP_INFO \n where  EMPID = "+testNo ;
+            String sql_delete ="delete from EMP_INFO ";
 
 
-              int num = stmt.executeUpdate(sql_delete);
+             int i = stmt.executeUpdate(sql_delete);
+             System.out.println("削除したのは"+i+"行");//削除した行数
 
                       String sql = "select \n" +
 				                    "ef.EMPID ee \n" +
@@ -64,25 +64,25 @@ public class DatabaseTest5 extends HttpServlet {
 				    				",EMP_INFO ef \n" +
 				    				"where 1=1 \n" +
 				    				"and dk.DEPARTID = ef.DEPARTID \n" +
-				    				//"and ef.EMPID = 'EMP0002'  \n" +
 				    				"order by  \n" +
 				    				"ef.EMPID \n" +
 				    				" \n";
+              			//	ResultSet rs1 = stmt.executeQuery(sql);
 
-                      ResultSet rs1 = stmt.executeQuery(sql);
 
-            while (rs1.next()) {
-				emp e1 = new emp();
+
+         //   while (rs1.next()) {
+			//	emp e1 = new emp();
 				//System.out.println(e1);
-				e1.setEmpId(rs1.getString("ee"));
-				e1.setEmpName(rs1.getString("en"));
-				empList.add(e1);
-				System.out.println(e1.getEmpId());
-				System.out.println(e1.getEmpName());
-            }
+				//e1.setEmpId(rs1.getString("ee"));
+				//e1.setEmpName(rs1.getString("en"));
+				//empList.add(e1);
+			//	System.out.println(e1.getEmpId());
+			//	System.out.println(e1.getEmpName());
+         //   }
 
-            rs1.close();
-            stmt.close();
+           // rs1.close();
+           // stmt.close();
 
         }catch (ClassNotFoundException e){
             out.println("ClassNotFoundException:" + e.getMessage());

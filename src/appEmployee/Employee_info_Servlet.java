@@ -99,6 +99,7 @@ public class Employee_info_Servlet extends HttpServlet {
 				e1.setEmpId(rs1.getString("ee"));
 				e1.setEmpName(rs1.getString("en"));
 				empList.add(e1);
+				System.out.println("サーブレット");
 				System.out.println(e1.getEmpId());
 				System.out.println(e1.getEmpName());
 

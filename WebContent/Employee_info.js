@@ -2,10 +2,6 @@
 function executeAjax () {
 	'use strict';
 
-
-
-
-
 	// ?以降のパラメータを取得
 	// 今回で言うとhttp://localhost:8080/wt1/hobby.html?q=0001でいう0001が取得される
 	var parameter  = location.search.substring( 1, location.search.length );
@@ -21,23 +17,29 @@ function executeAjax () {
 		url : '/Employee_info/a',//サーブレットを確認
 		dataType : 'json',
 		data : requestQuery,
+
 		success : function(pw) {
 			console.log(pw);
 			console.log('前'+pw);
 			var pwemp = null;
-			var tmp = document.getElementsByClassName("js-delete-button");
-			var moji = "testID";
+
 			console.log('後'+pw);
 			console.log(pwemp);
 
 			for(var i = 0;i<pw.length; i++){
 				 pwemp = pw[i];
 				 console.log('for文内'+pwemp.empName);
-				 tmp.setAttribute("id","moji"+i);
+
 				var edit ='<td><input type="button">編集</input></td>'
-				var del= ' <td><input type="button" value="削除"   class = "js-delete-button" onclick = "deleteEmp()"  >削除</input></td>'
+				var del= ' <td><input type="button" value="'+pwemp.empId+'" class = "js-delete-button" onclick = "deleteEmp(this)"  >削除</input></td>'
+			//???	var del= ' <td><input type="button" value="削除" class = "js-delete-button" onclick = "deleteEmp('+pwemp.empId+')  >削除</input></td>'
+
 				$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
 
+
+				//	var tmp = document.getElementsByClassName("js-delete-button");
+			//	var moji = "testID";
+			//	tmp.setAttribute("id","moji"+i);
 
 				console.log('for文内'+pwemp.empId);
 				//console.log(input[i]);
@@ -59,18 +61,24 @@ function executeAjax () {
 //}
 
 
-	function deleteEmp(){
-		//console.log('ab');
+	function deleteEmp(i){
+		var f =$(i).val();
+		console.log("deleteEmpのなか"+i);
+		console.log("deleteEmpのなかf"+f);
 
-	//	var rq = {rgp:}//ここからサーブレットに渡す
+
+		var rq = {rgp:f}//ここからサーブレットに渡す
+		console.log("var rqは"+f);
+
 		'use strict';
 	$.ajax({
 		Type : 'GET',
 		url : '/Employee_info/DatabaseTest5',//サーブレットを確認
 		dataType : 'json',
-		//data : requestQuery,
+		data : rq,
+
 		success : function(pw) {
-			console.log(pw);
+			console.log('deleteEmpのajax'+pw);
 
 
 			//$('#empTable').empty();
@@ -84,7 +92,7 @@ function executeAjax () {
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
-			alert('データの通信に失敗しました');
+			alert('データの通信に失敗しました__Employee_info.js');
 			console.log(errorThrown)
 		}
 	});

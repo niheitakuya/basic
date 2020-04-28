@@ -25,16 +25,23 @@ public class DatabaseTest5 extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException{
     	String testNo = request.getParameter("rgp");
-    	String empnum = request.getParameter("pwemp.empId");
+    	//String testNo = "3";
+    	//String empnum = request.getParameter("pwemp.empId");
     	//System.out.println(empnum);
-
+    	System.out.println("リクエストパラメータ::"+testNo);
+     	//String c = changeId(testNo);
+    	//System.out.println(c);
 
 
     	response.setContentType("text/html; charset=Shift_JIS");
-        PrintWriter out = response.getWriter();
+    	PrintWriter out = response.getWriter();
         List <emp> empList =  new ArrayList<>();
 
+        String a = request.getParameter("rgp");
+        System.out.println("jsの値"+a);
 
+
+        //System.out.println(empList.get(a));
 
 
         Connection con = null;
@@ -42,15 +49,16 @@ public class DatabaseTest5 extends HttpServlet {
 		String user = "webapp";
 		String pass = "webapp";
 
-
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
              con = DriverManager.getConnection(url, user, pass);
 
             Statement stmt = con.createStatement();
 
-          //  String sql_delete ="delete from EMP_INFO \n where  EMPID = "+testNo ;
-            String sql_delete ="delete from EMP_INFO ";
+           //String sql_delete ="delete from EMP_INFO \n where  EMPID = "+ c  ;
+           String sql_delete ="delete from EMP_INFO where EMPID ='"+testNo+"'" ;//ここを変数にする。
+
+            //String sql_delete ="delete from EMP_INFO ";
 
 
              int i = stmt.executeUpdate(sql_delete);
@@ -67,22 +75,24 @@ public class DatabaseTest5 extends HttpServlet {
 				    				"order by  \n" +
 				    				"ef.EMPID \n" +
 				    				" \n";
-              			//	ResultSet rs1 = stmt.executeQuery(sql);
 
-
-
-         //   while (rs1.next()) {
-			//	emp e1 = new emp();
-				//System.out.println(e1);
-				//e1.setEmpId(rs1.getString("ee"));
-				//e1.setEmpName(rs1.getString("en"));
-				//empList.add(e1);
-			//	System.out.println(e1.getEmpId());
-			//	System.out.println(e1.getEmpName());
-         //   }
-
-           // rs1.close();
-           // stmt.close();
+//
+//                      ResultSet rs1 = stmt.executeQuery(sql);
+//
+//
+//
+//            while (rs1.next()) {
+//				emp e1 = new emp();
+//				System.out.println("while文のなかDatabase5"+e1);
+//				e1.setEmpId(rs1.getString("ee"));
+//				e1.setEmpName(rs1.getString("en"));
+//				empList.add(e1);
+//				System.out.println(e1.getEmpId());
+//				System.out.println(e1.getEmpName());
+//            }
+//
+//            rs1.close();
+//            stmt.close();
 
         }catch (ClassNotFoundException e){
             out.println("ClassNotFoundException:" + e.getMessage());
@@ -100,6 +110,18 @@ public class DatabaseTest5 extends HttpServlet {
             }
         }
         out.append(new ObjectMapper().writeValueAsString(empList));
-
+        System.out.println("最後"+empList);
     }
+
+    public static String changeId(String x){
+    	int b = Integer.valueOf(x);
+    	int a =   +1;
+    	return "EMPID000"+ a;
+    }
+
+
+
+
+
 }
+

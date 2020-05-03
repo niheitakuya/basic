@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -25,24 +26,11 @@ public class Employee_info_edit_Servlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException{
     	String testNo = request.getParameter("rgp");
-    	//String testNo = "3";
-    	//String empnum = request.getParameter("pwemp.empId");
-    	//System.out.println(empnum);
     	System.out.println("リクエストパラメータ::"+testNo);
-     	//String c = changeId(testNo);
-    	//System.out.println(c);
-
 
     	response.setContentType("text/html; charset=Shift_JIS");
     	PrintWriter out = response.getWriter();
         List <emp> empList =  new ArrayList<>();
-
-        String a = request.getParameter("rgp");
-        System.out.println("jsの値"+a);
-
-
-        //System.out.println(empList.get(a));
-
 
         Connection con = null;
         String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -55,44 +43,68 @@ public class Employee_info_edit_Servlet extends HttpServlet {
 
             Statement stmt = con.createStatement();
 
-           //String sql_delete ="delete from EMP_INFO \n where  EMPID = "+ c  ;
-           String sql_delete ="delete from EMP_INFO where EMPID ='"+testNo+"'" ;//ここを変数にする。
-
-            //String sql_delete ="delete from EMP_INFO ";
-
-
-             int i = stmt.executeUpdate(sql_delete);
-             System.out.println("削除したのは"+i+"行");//削除した行数
-
-                      String sql = "select \n" +
-				                    "ef.EMPID ee \n" +
-				    				",ef.NAME en \n" +
-				    				"from \n" +
-				    				"DEPART_KBN dk \n" +
-				    				",EMP_INFO ef \n" +
-				    				"where 1=1 \n" +
-				    				"and dk.DEPARTID = ef.DEPARTID \n" +
-				    				"order by  \n" +
-				    				"ef.EMPID \n" +
-				    				" \n";
 
 //
-//                      ResultSet rs1 = stmt.executeQuery(sql);
-//
-//
-//
-//            while (rs1.next()) {
-//				emp e1 = new emp();
-//				System.out.println("while文のなかDatabase5"+e1);
-//				e1.setEmpId(rs1.getString("ee"));
-//				e1.setEmpName(rs1.getString("en"));
-//				empList.add(e1);
-//				System.out.println(e1.getEmpId());
-//				System.out.println(e1.getEmpName());
-//            }
-//
-//            rs1.close();
-//            stmt.close();
+//            String sql =  "select \n" +
+//            		"EMP_INFO.EMPID eie,EMP_INFO.NAME ein ,EMP_INFO.AGE eia,EMP_INFO.SEX eis,EMP_INFO.POSTCODE eip,EMP_INFO.PREF eipr,EMP_INFO.ADDRESS eiad,DEPART_KBN.DEPARTNAME dkd,EMP_INFO.STARTDATE eisd,EMP_INFO.RETIREMENTDATE eir \n" +
+//            		"from \n" +
+//            		"EMP_INFO \n" +
+//            		",DEPART_KBN \n" +
+//            		"where 1=1 \n" +
+//            		"and EMP_INFO.DEPARTID = DEPART_KBN.DEPARTID \n" +
+//            		"order by EMP_INFO.EMPID \n";
+
+
+            String sql ="select \n" +
+            		"EMP_INFO.EMPID eie,EMP_INFO.NAME ein ,EMP_INFO.AGE eia,EMP_INFO.SEX eis,EMP_INFO.POSTCODE eip,EMP_INFO.PREF eipr,EMP_INFO.ADDRESS eiad,DEPART_KBN.DEPARTNAME dkd,EMP_INFO.STARTDATE eisd,EMP_INFO.RETIREMENTDATE eir \n" +
+            		"from \n" +
+            		"EMP_INFO \n" +
+            		",DEPART_KBN \n" +
+            		"where 1=1 \n" +
+            		"and EMP_INFO.DEPARTID = DEPART_KBN.DEPARTID and EMP_INFO.EMPID = '"+testNo+"'" +
+            		"order by EMP_INFO.EMPID \n";
+
+
+                      System.out.println("sql文の直後：："+sql);
+
+                      ResultSet rs1 = stmt.executeQuery(sql);
+
+
+
+            while (rs1.next()) {
+				emp e1 = new emp();
+				System.out.println("while文のなかEmployee_info_edit_Servlet"+e1);
+
+				e1.setEmpId(rs1.getString("eie"));
+					System.out.println(e1.getEmpId());
+				e1.setEmpName(rs1.getString("ein"));
+					System.out.println(e1.getEmpName());
+				e1.setEmpAge(rs1.getString("eia"));
+					System.out.println(e1.getEmpAge());
+				e1.setEmpSex(rs1.getString("eis"));
+					System.out.println(e1.getEmpSex());
+				e1.setEmpPostcode(rs1.getString("eip"));
+					System.out.println(e1.getEmpPostcode());
+				e1.setEmpPref(rs1.getString("eipr"));
+					System.out.println(e1.getEmpPref());
+				e1.setEmpAddress(rs1.getString("eiad"));
+					System.out.println(e1.getEmpAddress());
+				e1.setEmpDepartname(rs1.getString("dkd"));
+					System.out.println(e1.getEmpDepartname());
+				e1.setEmpStartdate(rs1.getString("eisd"));
+					System.out.println(e1.getEmpStartdate());
+				e1.setEmpRetirementdate(rs1.getString("eir"));
+					System.out.println(e1.getEmpRetirementdate());
+
+					System.out.println("-------------------------------");
+
+				empList.add(e1);
+
+
+            }
+
+            rs1.close();
+            stmt.close();
 
         }catch (ClassNotFoundException e){
             out.println("ClassNotFoundException:" + e.getMessage());
@@ -109,19 +121,10 @@ public class Employee_info_edit_Servlet extends HttpServlet {
                 out.println("SQLException:" + e.getMessage());
             }
         }
-        out.append(new ObjectMapper().writeValueAsString(empList));
-        System.out.println("最後"+empList);
+       //out.append(new ObjectMapper().writeValueAsString(empList));
+       out.append(new ObjectMapper().writeValueAsString(empList));
+       //out.append(new ObjectMapper().writeValueAsString(empList));
+       // System.out.println("最後"+empList);
     }
-
-    public static String changeId(String x){
-    	int b = Integer.valueOf(x);
-    	int a =   +1;
-    	return "EMPID000"+ a;
-    }
-
-
-
-
-
-}
+}//public class Employee_info_edit_Servletの最後
 

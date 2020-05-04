@@ -11,7 +11,6 @@ var deleteEmp = function(){
 		Type : 'GET',
 		url : '/Employee_info/DatabaseTest5',//サーブレットを確認
 		dataType : 'json',
-		//data : requestQuery,
 		success : function(pw) {
 			console.log(pw);
 

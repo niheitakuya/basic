@@ -38,7 +38,7 @@ $(document).ready(function () {
 //   target.innerHTML = param["q"];
 	 console.log('paramは'+param.retirementdate);
 
-	 $('#js-edit_q').append('<input type="text" name="name" value = "'+param.q+'">');
+	 $('#js-edit_q').append('<input type="text" name="name1" id = "js-edit-qq" value = "'+param.q+'">');
 	 $('#js-edit_name').append('<input type="text" name="name" value = "'+param.name+'">');
 	 $('#js-edit_age').append('<input type="text" name="name" value = "'+param.age+'">');
 	 $('#js-edit_postcode').append('<input type="text" name="name" value = "'+param.postcode+'">');
@@ -63,5 +63,31 @@ $(document).ready(function () {
 
 	 for (var i  = 0;i<pref.length;i++){
 			$('#js-edit_pref').append('<option value="'+pref[i]+'">'+pref[i]+'</option>');
-		}
+		};
+
+	 $("#js-edit_button").click(edit_button);
+
 });
+
+
+var edit_button = function(){
+	console.log('編集ボタンを押しました');
+
+	//Ajaxを以下に書く
+	//param = GetQueryString();
+	//console.log(param);//連想配列として表示
+
+//	const t1 = document.name1.value;
+//	console.log(t1);
+
+
+
+	 var a =$('#js-edit_qq').val();
+	 console.log(a);
+
+	 var input_message = document.getElementById('js-edit_q').value;
+	 console.log(input_message);
+
+
+
+};

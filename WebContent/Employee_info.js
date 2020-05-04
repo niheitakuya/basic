@@ -16,7 +16,7 @@ function executeAjax () {
 	};
 	$.ajax({
 		Type : 'GET',
-		url : '/Employee_info/a',//サーブレットを確認
+		url : '/Employee_info/a',  //サーブレットを確認
 		dataType : 'json',
 		data : requestQuery,
 

@@ -1,5 +1,5 @@
 
-var result  = null;
+//var result  = null;
 function GetQueryString() {
     if (1 < document.location.search.length) {
         // 最初の1文字 (?記号) を除いた文字列を取得する
@@ -35,22 +35,40 @@ function GetQueryString() {
 $(document).ready(function () {
 	 param = GetQueryString();//{id: "EMP0001", name: "tanaka",age:"10"}
 //   target = document.getElementById("param");
-//   target.innerHTML = param["q"];
-	 console.log('paramは'+param.retirementdate);
+//   target.innerHTML = param["q"];Retirementdate
+	 console.log('paramは'+param.Retirementdate);
+
+
+
+
 
 	 $('#js-edit_q').append('<input type="text" name="name1" id = "js-edit-qq" value = "'+param.q+'">');
-	 $('#js-edit_name').append('<input type="text" name="name" value = "'+param.name+'">');
-	 $('#js-edit_age').append('<input type="text" name="name" value = "'+param.age+'">');
-	 $('#js-edit_postcode').append('<input type="text" name="name" value = "'+param.postcode+'">');
-	 $('#js-edit_address').append('<input type="text" name="name" value = "'+param.address+'">');
-	 $('#js-edit_startdate').append('<input type="text" name="name" value = "'+param.startdate+'">');
+	 $('#js-edit_name').append('<input type="text" name="name" id = "js-edit-namename"  value = "'+param.name+'">');
+	 $('#js-edit_age').append('<input type="text" name="name" id = "js-edit-ageage"    value = "'+param.age+'">');
+	//性別
+	 $('#js-edit_sex').append('<input type="radio" name="gender" id = "js-edit-sexsex" value ="男性">男性');
+	 $('#js-edit_sex').append('<input type="radio" name="gender" id = "js-edit-sexsex" value ="女性">女性');
 
-	 var value = $('#js-edit_retirementdate').val();
-	 if(value == undefined){
-		 $('#js-edit_retirementdate').append('<input type="text" name="name" value ="'+ +'">');
-	 }else{
-		 $('#js-edit_retirementdate').append('<input type="text" name="name" value = "'+param.retirementdate+'">');
-	 }
+	 $('#js-edit_postcode').append('<input type="text" name="name" id = "js-edit-postcodepostcode"  value = "'+param.postcode+'">');
+	 //都道府県
+
+
+	 $('#js-edit_address').append('<input type="text" name="name" id = "js-edit-addressaddress" value = "'+param.address+'">');
+	 //部署
+
+
+
+	 $('#js-edit_startdate').append('<input type="text" name="name" id = "js-edit-startdatestartdate"  value = "'+param.startdate+'">');
+	 $('#js-edit_retirementdate').append('<input type="text" name="name"  id = "js-edit-retirementdateretirementdate"      value = "'+param.Retirementdate+'">');
+
+
+
+//	 var value = $('#js-edit_retirementdate').val();
+//	 if(value == undefined){
+//		 $('#js-edit_retirementdate').append('<input type="text" name="name" id = "js-edit-retirementdateretirementdate"    value ="'+ +'">');
+//	 }else{
+//		 $('#js-edit_retirementdate').append('<input type="text" name="name"  id = "js-edit-retirementdateretirementdate"      value = "'+param.retirementdate+'">');
+//	 }
 
 	 var pref = ["北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
 			 "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
@@ -61,11 +79,13 @@ $(document).ready(function () {
 			 "熊本県","大分県","宮崎県","鹿児島県","沖縄県"
 			 ];
 
-	 for (var i  = 0;i<pref.length;i++){
-			$('#js-edit_pref').append('<option value="'+pref[i]+'">'+pref[i]+'</option>');
+	 for ( var i = 0;i<pref.length;i++){
+			$('#js-edit_pref').append('<option  id = "js-edit-prefpref  value="'+pref[i]+'">'+pref[i]+'</option>');
 		};
 
-	 $("#js-edit_button").click(edit_button);
+
+		//編集ボタンクリック時、edit_button関数利用
+		$("#js-edit_button").click(edit_button);
 
 });
 
@@ -81,12 +101,103 @@ var edit_button = function(){
 //	console.log(t1);
 
 
+//
+	 var editq =$('#js-edit-qq').val();  //id
+	 console.log(editq);
 
-	 var a =$('#js-edit_qq').val();
-	 console.log(a);
+	 var editname =$('#js-edit-namename').val();//名前
+	 console.log(editname);
 
-	 var input_message = document.getElementById('js-edit_q').value;
-	 console.log(input_message);
+	 var editage =$('#js-edit-ageage').val();//年齢
+	 console.log(editage);
+
+	 var editsex = $('input:radio[name="gender"]:checked').val();//性別
+	 console.log(editsex);
+
+	 var editpref = $('#js-edit_pref').val();
+	 console.log(editpref);
+
+	 var editpostcode =$('#js-edit-postcodepostcode').val();//郵便番号
+	 console.log(editpostcode);
+
+
+	 var editaddress =$('#js-edit-addressaddress').val();//住所
+	 console.log(editaddress);
+
+
+	 var editdepartment =$('#js-edit-namename').val();//部署
+	 console.log(editdepartment);
+
+
+	 var editstartdate =$('#js-edit-startdatestartdate').val();//入社日
+	 console.log(editstartdate);
+
+	 var editRetirementdate =$('#js-edit-retirementdateretirementdate').val();//退社日
+	 console.log(editRetirementdate);
+
+
+
+	 // var input_message = document.getElementById('js-edit_qq').value;
+	 //console.log(input_message);
+
+	 //Ajaxを書く
+	 var requestQuery = {
+				//shainId : parameter
+
+
+
+
+
+
+
+
+
+
+			};
+			$.ajax({
+				Type : 'GET',
+				url : '/Employee_info/a',  //サーブレットを確認
+				dataType : 'json',
+				data : requestQuery,
+
+
+
+				success : function(pw) {
+					console.log(pw);
+					console.log('前'+pw);
+					var pwemp = null;
+
+					console.log('後'+pw);
+					console.log(pwemp);
+
+					for(var i = 0;i<pw.length; i++){
+						 pwemp = pw[i];
+						 console.log('for文内あ'+pwemp.empName);
+
+						var edit ='<td><input type="button"value="'+pwemp.empId+'" class = "js-edit-button" onclick = "deleteEdit(this)" >編集</input></td>'
+						var del= ' <td><input type="button" value="'+pwemp.empId+'" class = "js-delete-button" onclick = "deleteEmp(this)"  >削除</input></td>'
+						//???これがなぜエラーなのか→var del= ' <td><input type="button" value="削除" class = "js-delete-button" onclick = "deleteEmp('+pwemp.empId+')  >削除</input></td>'
+
+						$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
+
+						console.log('for文内い'+pwemp.empId);
+						//console.log(input[i]);
+					}
+					//console.log(pwemp.empId);
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					// サーバーとの通信に失敗した時の処理
+					alert('データの通信に失敗しました');
+					console.log(errorThrown)
+				}
+			});
+
+
+
+
+
+
+
 
 
 

@@ -108,6 +108,12 @@ function executeAjax () {
 				console.log(pwemp1);
 
 
+				console.log(pwemp1.empRetirementdate);
+
+				if(pwemp1.empRetirementdate == null){
+
+					pwemp1.empRetirementdate = '  ';
+
 				window.location.href = "./Employee_info_edit.html?q="
 																+pwemp1.empId
 
@@ -139,7 +145,7 @@ function executeAjax () {
 																+pwemp1.empRetirementdate
 																;
 
-															//編集ページへ移動
+				}											//編集ページへ移動
 															//window.location.href = "./Employee_info_edit.html?q="+pwemp1.empId;//編集ページへ移動
 
 			},

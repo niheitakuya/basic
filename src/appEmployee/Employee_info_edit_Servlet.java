@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 @WebServlet("/Employee_info_edit_Servlet")
 public class Employee_info_edit_Servlet extends HttpServlet {
 
@@ -42,18 +41,6 @@ public class Employee_info_edit_Servlet extends HttpServlet {
              con = DriverManager.getConnection(url, user, pass);
 
             Statement stmt = con.createStatement();
-
-
-//
-//            String sql =  "select \n" +
-//            		"EMP_INFO.EMPID eie,EMP_INFO.NAME ein ,EMP_INFO.AGE eia,EMP_INFO.SEX eis,EMP_INFO.POSTCODE eip,EMP_INFO.PREF eipr,EMP_INFO.ADDRESS eiad,DEPART_KBN.DEPARTNAME dkd,EMP_INFO.STARTDATE eisd,EMP_INFO.RETIREMENTDATE eir \n" +
-//            		"from \n" +
-//            		"EMP_INFO \n" +
-//            		",DEPART_KBN \n" +
-//            		"where 1=1 \n" +
-//            		"and EMP_INFO.DEPARTID = DEPART_KBN.DEPARTID \n" +
-//            		"order by EMP_INFO.EMPID \n";
-
 
             String sql ="select \n" +
             		"EMP_INFO.EMPID eie,EMP_INFO.NAME ein ,EMP_INFO.AGE eia,EMP_INFO.SEX eis,EMP_INFO.POSTCODE eip,EMP_INFO.PREF eipr,EMP_INFO.ADDRESS eiad,DEPART_KBN.DEPARTNAME dkd,EMP_INFO.STARTDATE eisd,EMP_INFO.RETIREMENTDATE eir \n" +

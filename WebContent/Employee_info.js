@@ -4,33 +4,20 @@
 function executeAjax () {
 	'use strict';
 
-	// ?以降のパラメータを取得
-	// 今回で言うとhttp://localhost:8080/wt1/hobby.html?q=0001でいう0001が取得される
-	var parameter  = location.search.substring( 1, location.search.length );
-	parameter = decodeURIComponent( parameter );
-	parameter = parameter.split('=')[1];
-
-	// --------------- TODO 編集ここから---------------
-	var requestQuery = {
-		shainId : parameter
-	};
 	$.ajax({
 		Type : 'GET',
-		url : '/Employee_info/a',  //サーブレットを確認
+		url : '/Employee_info/a',  //URLを作成、サーブレットを確認
 		dataType : 'json',
-		data : requestQuery,
 
 		success : function(pw) {
 			console.log(pw);
-			console.log('前'+pw);
-			var pwemp = null;
 
-			console.log('後'+pw);
+			var pwemp = null;
 			console.log(pwemp);
 
 			for(var i = 0;i<pw.length; i++){
-				 pwemp = pw[i];
-				 console.log('for文内あ'+pwemp.empName);
+				pwemp = pw[i];
+				console.log('for文内あ'+pwemp.empName);
 
 				var edit ='<td><input type="button"value="'+pwemp.empId+'" class = "js-edit-button" onclick = "deleteEdit(this)" >編集</input></td>'
 				var del= ' <td><input type="button" value="'+pwemp.empId+'" class = "js-delete-button" onclick = "deleteEmp(this)"  >削除</input></td>'
@@ -39,17 +26,14 @@ function executeAjax () {
 				$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
 
 				console.log('for文内い'+pwemp.empId);
-				//console.log(input[i]);
 			}
-			//console.log(pwemp.empId);
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
 			alert('データの通信に失敗しました');
 			console.log(errorThrown)
 		}
-	});
-	// ---------------ここまで---------------
+	});//ここまでAjax
 }
 
 
@@ -90,6 +74,7 @@ function executeAjax () {
 		var rq = {rgp:f}//ここからサーブレットに渡す
 		console.log("var rqは"+f);
 		'use strict';
+		
 		$.ajax({
 			Type : 'GET',
 			url : '/Employee_info/Employee_info_edit_Servlet',//サーブレットを確認

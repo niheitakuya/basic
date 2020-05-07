@@ -1,5 +1,5 @@
 
-//var result  = null;
+
 function GetQueryString() {
     if (1 < document.location.search.length) {
         // 最初の1文字 (?記号) を除いた文字列を取得する
@@ -36,7 +36,6 @@ $(document).ready(function () {
 	 param = GetQueryString();//{id: "EMP0001", name: "tanaka",age:"10"}
 //   target = document.getElementById("param");
 //   target.innerHTML = param["q"];Retirementdate
-	 console.log('paramは'+param.Retirementdate);
 
 
 
@@ -54,7 +53,14 @@ $(document).ready(function () {
 
 
 	 $('#js-edit_address').append('<input type="text" name="name" id = "js-edit-addressaddress" value = "'+param.address+'">');
+
 	 //部署
+	 $('#js-edit_depatment').append('<option  value="D01">総務部</option>');
+	 $('#js-edit_depatment').append('<option  value="D02">営業部</option>');
+	 $('#js-edit_depatment').append('<option  value="D03">研究開発部</option>');
+
+
+
 
 
 
@@ -91,7 +97,15 @@ $(document).ready(function () {
 
 
 var edit_button = function(){
+	// console.log('paramは旧ID：'+param.id);
+	// var a = GetQueryString();
+	// console.log('paramは旧ID：'+a);
+	 param = GetQueryString();//{id: "EMP0001", name: "tanaka",age:"10"}
+	 var oldID = param.q;
+
 	console.log('編集ボタンを押しました');
+	console.log('旧ID：'+oldID);
+
 
 	//Ajaxを以下に書く
 	//param = GetQueryString();
@@ -124,8 +138,7 @@ var edit_button = function(){
 	 var editaddress =$('#js-edit-addressaddress').val();//住所
 	 console.log(editaddress);
 
-
-	 var editdepartment =$('#js-edit-namename').val();//部署
+	 var editdepartment =$('#js-edit_depatment').val();//部署
 	 console.log(editdepartment);
 
 
@@ -142,23 +155,26 @@ var edit_button = function(){
 
 	 //Ajaxを書く
 	 var requestQuery = {
-				//shainId : parameter
-
-
-
-
-
-
-
-
-
-
+			 	q:editq,
+			 	name:editname,
+			 	age:editage,
+			 	sex:editsex,
+			 	postcode:editpostcode,
+			 	pref:editpref,
+			 	address:editaddress,
+			 	department:editdepartment,
+			 	startdate:editstartdate,
+			 	Retirementdate:editRetirementdate,
+			 	oldid:oldID
 			};
+
+
 			$.ajax({
 				Type : 'GET',
-				url : '/Employee_info/a',  //サーブレットを確認
+				url : '/Employee_info/Employee_info_edit2_Servlet',  //サーブレットを確認
 				dataType : 'json',
 				data : requestQuery,
+
 
 
 

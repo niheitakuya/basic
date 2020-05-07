@@ -104,6 +104,7 @@ public class Employee_info_Servlet extends HttpServlet {
 		// JSONで出力する
 		//pw.println("a");
 		pw.append(new ObjectMapper().writeValueAsString(empList));
+		System.out.println(empList);
 		// -- ここまで --
 	}
 

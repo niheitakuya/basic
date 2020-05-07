@@ -11,23 +11,21 @@ function executeAjax () {
 		dataType : 'json',
 
 		success : function(pw) {
+			console.log('返却された:'+pw);
 			console.log(pw);
 
-			var pwemp = null;
-			console.log(pwemp);
+			var pwDepartment = null;
 
 			for(var i = 0;i<pw.length; i++){
-				pwemp = pw[i];
-				console.log('for文内あ'+pwemp.empName);
+				pwDepartment = pw[i];
+				console.log('for文内:'+pwDepartment.departmentId);
+				console.log('for文内:'+pwDepartment.departname);
 
-				var edit ='<td><input type="button"value="'+pwemp.empId+'" class = "js-edit-button" onclick = "deleteEdit(this)" >編集</input></td>'
-				var del= ' <td><input type="button" value="'+pwemp.empId+'" class = "js-delete-button" onclick = "deleteEmp(this)"  >削除</input></td>'
-				//???これがなぜエラーなのか→var del= ' <td><input type="button" value="削除" class = "js-delete-button" onclick = "deleteEmp('+pwemp.empId+')  >削除</input></td>'
-
-				$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
-
-				console.log('for文内い'+pwemp.empId);
-			}
+				var edit ='<td><input type="button"value="'+pwDepartment.departmentId+'" class = "js-edit-button" onclick = "editDepartment(this)" >編集</input></td>'
+				var del= ' <td><input type="button" value="'+pwDepartment.departname+'" class = "js-delete-button" onclick = "deleteDepartment(this)"  >削除</input></td>'
+				//var del= ' <td><input type="button" value="削除" class = "js-delete-button" onclick = "deleteEmp('+pwemp.empId+')  >削除</input></td>'
+				$('#DepartmentTable').append('<tr>'+'<td>'+pwDepartment.departmentId+'</td>'+'<td>'+pwDepartment.departname+'</td>'+edit +del+'</tr>');
+				}
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
@@ -36,6 +34,20 @@ function executeAjax () {
 		}
 	});//ここまでAjax
 }
+
+//編集用関数
+function deleteDepartment(){
+
+}
+
+
+//削除用関数
+function deleteDepartment(i){
+	console.log(i);
+	}
+
+
+
 
 
 

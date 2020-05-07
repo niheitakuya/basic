@@ -33,7 +33,6 @@ $(document).ready(function () {
 	 param = GetQueryString();//{id: "EMP0001", name: "tanaka",age:"10"}
 //   target = document.getElementById("param");
 //   target.innerHTML = param["q"];Retirementdate
-	 console.log(param.q);
 
 
 
@@ -57,10 +56,6 @@ $(document).ready(function () {
 	 $('#js-edit_depatment').append('<option  value="D01">総務部</option>');
 	 $('#js-edit_depatment').append('<option  value="D02">営業部</option>');
 	 $('#js-edit_depatment').append('<option  value="D03">研究開発部</option>');
-
-
-
-
 
 
 	 $('#js-edit_startdate').append('<input type="text" name="name" id = "js-edit-startdatestartdate"  value = "'+param.startdate+'">');
@@ -88,10 +83,13 @@ var edit_button = function(){
 	// console.log('paramは旧ID：'+param.id);
 	// var a = GetQueryString();
 	// console.log('paramは旧ID：'+a);
-	 param = GetQueryString();//{id: "EMP0001", name: "tanaka",age:"10"}
+	 param = GetQueryString();//{q: "EMP0001", name: "tanaka",age:"10"}
 	 var oldID = param.q;
 
-	console.log('編集ボタンを押しました');
+	console.log('設定ボタンを押しました');
+	console.log('param:'+param);
+	 console.log(param);
+
 	console.log('旧ID：'+oldID);
 
 

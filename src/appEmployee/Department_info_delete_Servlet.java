@@ -19,21 +19,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-@WebServlet("/DatabaseTest5")
-public class DatabaseTest5 extends HttpServlet {
+@WebServlet("/Department_info_delete_Servlet")
+public class Department_info_delete_Servlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException{
-    	String testNo = request.getParameter("rgp");
-    	System.out.println("リクエストパラメータ::"+testNo);
+    	String DepartmenId = request.getParameter("DepartmenId");
+		System.out.println(DepartmenId);//記入例、URLには?getDepartmenIdtVal=D01
 
 
     	response.setContentType("text/html; charset=Shift_JIS");
     	PrintWriter out = response.getWriter();
         List <emp> empList =  new ArrayList<>();
 
-        String a = request.getParameter("rgp");
-        System.out.println("jsの値"+a);
+       // String a = request.getParameter("rgp");
+       // System.out.println("jsの値"+a);
 
 
         //System.out.println(empList.get(a));
@@ -50,9 +50,13 @@ public class DatabaseTest5 extends HttpServlet {
 
             Statement stmt = con.createStatement();
 
-            String sql_delete ="delete from EMP_INFO where EMPID ='"+testNo+"'" ;//ここを変数にする。
+            String sql = "delete from DEPART_KBN \n" +
+					"where DEPARTID = '"+DepartmenId+"' \n" ;
 
-             int i = stmt.executeUpdate(sql_delete);
+            System.out.println(sql);
+
+
+            int i = stmt.executeUpdate(sql);
              System.out.println("削除したのは"+i+"行");//削除した行数
 
         }catch (ClassNotFoundException e){

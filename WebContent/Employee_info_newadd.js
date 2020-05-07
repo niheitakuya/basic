@@ -56,10 +56,6 @@ $(document).ready(function () {
 	 $('#js-edit_depatment').append('<option  value="D03">研究開発部</option>');
 
 
-
-
-
-
 	 $('#js-edit_startdate').append('<input type="text" name="name" id = "js-edit-startdatestartdate"  value = "">');
 	 $('#js-edit_retirementdate').append('<input type="text" name="name"  id = "js-edit-retirementdateretirementdate"  value = "">');
 
@@ -78,7 +74,7 @@ $(document).ready(function () {
 
 
 		//編集ボタンクリック時、edit_button関数利用
-		$("#js-edit_button").click(edit_button);
+		$("#js-newadd_button").click(edit_button);
 
 });
 
@@ -142,9 +138,9 @@ var edit_button = function(){
 				dataType : 'json',
 				data : requestQuery,
 
-				success : function(pw) {
+				success : function() {
 
-					console.log(pw);
+					//console.log(pw);
 				},
 				error : function(XMLHttpRequest, textStatus, errorThrown) {
 					// サーバーとの通信に失敗した時の処理

@@ -39,8 +39,8 @@ function executeAjax () {
 
 	function deleteEmp(i){
 		var f =$(i).val();
-		console.log("deleteEmpのなか"+i);
-		console.log("deleteEmpのなかf"+f);
+		console.log("deleteEmpのなかでタグを表示："+i);
+		console.log("deleteEmpのなかでタグ内のvalue："+f);
 
 
 		var rq = {rgp:f}//ここからサーブレットに渡す
@@ -65,7 +65,7 @@ function executeAjax () {
 }//var deleteEmp = functionの最後
 
 
-	function deleteEdit(i){
+function deleteEdit(i){
 		var f =$(i).val();
 		console.log("deleteEmpのなか"+i);
 		console.log("deleteEmpのなかf"+f);
@@ -74,7 +74,7 @@ function executeAjax () {
 		var rq = {rgp:f}//ここからサーブレットに渡す
 		console.log("var rqは"+f);
 		'use strict';
-		
+
 		$.ajax({
 			Type : 'GET',
 			url : '/Employee_info/Employee_info_edit_Servlet',//サーブレットを確認
@@ -144,7 +144,7 @@ function executeAjax () {
 
 
 
-	$(document).ready(function () {
+$(document).ready(function () {
 	'use strict';
 	// 初期表示用
 	executeAjax();

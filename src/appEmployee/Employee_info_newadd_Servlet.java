@@ -51,7 +51,7 @@ public class Employee_info_newadd_Servlet extends HttpServlet {
 		System.out.println(address);
 		System.out.println(department);
 		System.out.println(startdate);
-		System.out.println(retirementdate);
+		System.out.println("退社"+retirementdate);
 		System.out.println("-------");
 
 
@@ -75,7 +75,7 @@ public class Employee_info_newadd_Servlet extends HttpServlet {
 				"EMP_INFO \n" +
 				"(EMPID,NAME,AGE,SEX,POSTCODE,PREF,ADDRESS,DEPARTID,STARTDATE,RETIREMENTDATE) \n" +
 				"values \n" +
-				"('"+q+"','"+name+"',"+20+",'"+sex+"','"+postcode+"','"+pref+"','"+address+"','"+department+"','"+startdate+"','"+retirementdate+"')";
+				"('"+q+"','"+name+"','"+age+"','"+sex+"','"+postcode+"','"+pref+"','"+address+"','"+department+"','"+startdate+"','"+retirementdate+"')";
 
 		System.out.println(sql);
 

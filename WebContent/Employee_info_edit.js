@@ -30,16 +30,13 @@ function GetQueryString() {
 
 
 $(document).ready(function () {
-	 param = GetQueryString();//{id: "EMP0001", name: "tanaka",age:"10"}
+	 param = GetQueryString();//{q: "EMP0001", name: "tanaka",age:"10"}
 //   target = document.getElementById("param");
 //   target.innerHTML = param["q"];Retirementdate
 
 
-
-
-
 	 $('#js-edit_q').append('<input type="text" name="name1" id = "js-edit-qq" value = "'+param.q+'">');
-
+	 //consle.log(param.q);
 	 $('#js-edit_name').append('<input type="text" name="name" id = "js-edit-namename"  value = "'+param.name+'">');
 	 $('#js-edit_age').append('<input type="text" name="name" id = "js-edit-ageage"    value = "'+param.age+'">');
 	//性別

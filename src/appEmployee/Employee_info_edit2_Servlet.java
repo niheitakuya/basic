@@ -97,7 +97,7 @@ public class Employee_info_edit2_Servlet extends HttpServlet {
 				"set \n" +
 				" ei.EMPID = '"+q+"', \n" +//新ID
 				" ei.NAME = '"+name+"', \n" +
-				" ei.AGE = '"+age+"', \n" +
+				" ei.AGE = "+age+", \n" +
 				" ei.SEX = '"+sex+"', \n" +
 				" ei.POSTCODE = '"+postcode+"', \n" +
 				" ei.PREF = '"+pref+"', \n" +

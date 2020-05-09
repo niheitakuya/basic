@@ -1,5 +1,3 @@
-
-
 // AjaxでJSONを取得する
 function executeAjax () {
 	'use strict';
@@ -10,62 +8,35 @@ function executeAjax () {
 		dataType : 'json',
 
 		success : function(pw) {
+			console.log('success : functionの後');
 			console.log(pw);
-
-			var pwemp = null;
+			console.log("pwは"+pw);
 			console.log(pwemp);
 
 			for(var i = 0;i<pw.length; i++){
-				pwemp = pw[i];
-				console.log('for文内あ'+pwemp.empName);
+				var pwemp = pw[i];
+				console.log('for文内_編集ボタン、削除ボタンの前'+pwemp.empName);//挙動の確認のため
 
-				var edit ='<td><input type="button"value="'+pwemp.empId+'" class = "js-edit-button" onclick = "deleteEdit(this)" >編集</input></td>'
-				var del= ' <td><input type="button" value="'+pwemp.empId+'" class = "js-delete-button" onclick = "deleteEmp(this)"  >削除</input></td>'
-				//???これがなぜエラーなのか→var del= ' <td><input type="button" value="削除" class = "js-delete-button" onclick = "deleteEmp('+pwemp.empId+')  >削除</input></td>'
+				var edit ='<td><input type="button"value="'+pwemp.empId+'" class = "js-edit-button" onclick = "EditEmp(this)" >編集</input></td>'
+				var del = ' <td><input type="button" value="'+pwemp.empId+'" class = "js-delete-button" onclick = "DeleteEmp(this)"  >削除</input></td>'
+				//var del= ' <td><input type="button" value="削除" class = "js-delete-button" onclick = "deleteEmp('+pwemp.empId+')  >削除</input></td>'
 
 				$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
 
-				console.log('for文内い'+pwemp.empId);
+				console.log('for文内_jqueryの編集ボタン、削除ボタンの後'+pwemp.empId);//挙動の確認のため
 			}
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
-			alert('データの通信に失敗しました');
+			alert('データの通信に失敗しました_Employee_info.js');
 			console.log(errorThrown)
 		}
 	});//ここまでAjax
-}
 
 
-	function deleteEmp(i){
-		var f =$(i).val();
-		console.log("deleteEmpのなかでタグを表示："+i);
-		console.log("deleteEmpのなかでタグ内のvalue："+f);
+}//executeAjaxの最後
 
-
-		var rq = {rgp:f}//ここからサーブレットに渡す
-		console.log("var rqは"+f);
-
-		'use strict';
-	$.ajax({
-		Type : 'GET',
-		url : '/Employee_info/DatabaseTest5',//サーブレットを確認
-		dataType : 'json',
-		data : rq,
-
-		success : function(pw) {
-			console.log('deleteEmpのajax:'+ pw);
-		},
-		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			// サーバーとの通信に失敗した時の処理
-			alert('データの通信に失敗しました__Employee_info.js');
-			console.log(errorThrown)
-		}
-	});
-}//var deleteEmp = functionの最後
-
-
-function deleteEdit(i){
+function EditEmp(i){
 		var f =$(i).val();
 		console.log("deleteEmpのなか"+i);
 		console.log("deleteEmpのなかf"+f);
@@ -78,6 +49,8 @@ function deleteEdit(i){
 		$.ajax({
 			Type : 'GET',
 			url : '/Employee_info/Employee_info_edit_Servlet',//サーブレットを確認
+		//	url : '/Employee_info/a',//サーブレットを確認
+
 			dataType : 'json',
 			data : rq,
 
@@ -91,13 +64,6 @@ function deleteEdit(i){
 				console.log('--------------');
 				var pwemp1 = pw[0];//配列のインデックスを指定する必要がある。
 				console.log(pwemp1);
-
-
-				console.log(pwemp1.empRetirementdate);
-
-				if(pwemp1.empRetirementdate == null){
-
-					pwemp1.empRetirementdate = '  ';
 
 				window.location.href = "./Employee_info_edit.html?q="
 																+pwemp1.empId
@@ -130,7 +96,7 @@ function deleteEdit(i){
 																+pwemp1.empRetirementdate
 																;
 
-				}											//編集ページへ移動
+														//編集ページへ移動
 															//window.location.href = "./Employee_info_edit.html?q="+pwemp1.empId;//編集ページへ移動
 
 			},
@@ -140,7 +106,36 @@ function deleteEdit(i){
 				console.log(errorThrown)
 			}
 		});
-	}//var deleteEdit = functionの最後
+	}//deleteEdit関数の最後
+
+function DeleteEmp(i){
+	var f =$(i).val();
+	console.log("deleteEmpのなかでタグを表示："+i);
+	console.log("deleteEmpのなかでタグ内のvalue："+f);
+
+
+	var rq = {rgp:f}//ここからサーブレットに渡す
+	console.log("var rqは"+f);
+
+	'use strict';
+$.ajax({
+	Type : 'GET',
+	url : '/Employee_info/DatabaseTest5',//サーブレットを確認
+	dataType : 'json',
+	data : rq,
+
+	success : function(pw) {
+		console.log('deleteEmpのajax:'+ pw);
+		//location.reload();//更新機能
+	},
+	error : function(XMLHttpRequest, textStatus, errorThrown) {
+		// サーバーとの通信に失敗した時の処理
+		alert('データの通信に失敗しました__Employee_info.js');
+		console.log(errorThrown)
+	}
+});
+}//deleteEmp関数の最後
+
 
 
 

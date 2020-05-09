@@ -15,14 +15,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Servlet implementation class Rogout_servlet
  */
-@WebServlet("/Rogout_servlet")
-public class Rogout_servlet extends HttpServlet {
+@WebServlet("/LogoutServlet")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Rogout_servlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,9 +37,9 @@ public class Rogout_servlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		session.removeAttribute("login");
+
 		PrintWriter pw = response.getWriter();
 		pw.append(new ObjectMapper().writeValueAsString("ログアウトok!。"));
-
 	}
 
 	/**

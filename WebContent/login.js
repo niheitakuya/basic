@@ -29,48 +29,26 @@ function password_button(){
 	var rq = {emp:empnum,
 			pass:password};
 
-
-
 	$.ajax({
 		Type : 'GET',
-		url : '/Employee_info/login_Servlet',//サーブレットを確認
+		url : '/Employee_info/LoginServlet',//サーブレットを確認
 		dataType : 'json',
 		data : rq,
 
 		success : function(pw) {
+			console.log(pw);
+			if(pw === 'ログイン完了。'){
+			console.log('LoginServletから帰ってきた')
+			window.location.href='./Employee_info.html';
+			}else if(pw === "ログイン不正。" ){
+				console.log('LoginServletから帰ってきた')
+				//window.location.href='./Employee_info.html';
+			};
 
-
-			console.log('前:'+pw);//コンソールでは、後[object Object]となるのか？
-			console.log(pw);//連想配列の中身確認
-
-
-			console.log('--------------');
-
-			for(var i = 0;i<pw.length; i++){
-				pwemp = pw[i];
-				console.log('for文内'+pwemp.empName);
-
-				var edit ='<td><input type="button"value="'+pwemp.empId+'" class = "js-edit-button" onclick = "deleteEdit(this)" >編集</input></td>'
-				var del= ' <td><input type="button" value="'+pwemp.empId+'" class = "js-delete-button" onclick = "deleteEmp(this)"  >削除</input></td>'
-
-				$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
-
-				console.log('for文内'+pwemp.empId);
-			}
-
-
-			var pwemp1 = pw[0];//配列のインデックスを指定する必要がある。
-			console.log(pwemp1);
-			console.log(pwemp1.empId);
-
-			window.location.href = "./Employee_info.html?ID="+
-														pwemp.empId+
-														"name="+
-														pwemp.empName;
 		},
 		error:function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
-			alert('データの通信に失敗しました__Employee_info.js');
+			alert('データの通信に失敗しました__login.js');
 			console.log(errorThrown)
 		}
 	});

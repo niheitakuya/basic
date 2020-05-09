@@ -31,15 +31,15 @@ public class Employee_info_Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		//文字化け防止
 		response.setContentType("text/html; charset=Windows-31J");
-
+		PrintWriter pw = response.getWriter();//出力ストリーム
 		HttpSession session = request.getSession(true);//sessionの生成,これが準備、一番最初
-		String LoginStatus = (String) session.getAttribute("login");//キーからvalue　受け取る
+		String LoginStatus = (String) session.getAttribute("login");//キーからvalue受け取る
 
 		if(LoginStatus == null){
-
+			pw.append(new ObjectMapper().writeValueAsString("ログイン前"));
 		}else{
 
-			//社員一覧表示
+			//社員一覧表示を書く。
 
 			// JDBCドライバの準備
 			try {
@@ -89,7 +89,7 @@ public class Employee_info_Servlet extends HttpServlet {
 
 				while (rs1.next()) {
 					emp e1 = new emp();
-					//System.out.println(e1);
+					System.out.println(e1);
 					e1.setEmpId(rs1.getString("ee"));
 					e1.setEmpName(rs1.getString("en"));
 					empList.add(e1);
@@ -104,23 +104,20 @@ public class Employee_info_Servlet extends HttpServlet {
 
 			// アクセスした人に応答するためのJSONを用意する
 
-			PrintWriter pw = response.getWriter();//出力ストリーム
+
 			// JSONで出力する
 			//pw.println("a");
 			pw.append(new ObjectMapper().writeValueAsString(empList));
 			System.out.println(empList);
 		}
 
-
-
-		// -- ここまで --
 	}
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-		// TODO 任意機能「趣味投稿機能に挑戦する場合はこちらを利用して下さい」
+				@Override
+				protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+					// TODO 任意機能「趣味投稿機能に挑戦する場合はこちらを利用して下さい」
 
-		// -- ここまで --
-	}
+					// -- ここまで --
+				}
 
 }//最終

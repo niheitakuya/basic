@@ -33,6 +33,7 @@ $(document).ready(function () {
 	 param = GetQueryString();//{q: "EMP0001", name: "tanaka",age:"10"}
 //   target = document.getElementById("param");
 //   target.innerHTML = param["q"];Retirementdate
+	 console.log(param);
 
 
 	 $('#js-edit_q').append('<input type="text" name="name1" id = "js-edit-qq" value = "'+param.q+'">');

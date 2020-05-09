@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>社員一覧ページ</title>
-<!-- JavaScriptの読み込み -->
-<script type="text/javascript" src="jquery-1.10.2.js"></script>
-<script type="text/javascript" src="Employee_info.js"></script>
-<script type="text/javascript" src="Employee_info_edit.js"></script>
-</head>
+	<head>
+		<meta charset="UTF-8">
 
-<body>
+		<title>社員一覧ページ</title>
 
-<h1>社員一覧：</h1>
-	<table id = empTable>
-		<tr><!-- テーブルヘッダー -->
-			<th>社員ID</th>
-			<th>名前</th>
-			<th>ボタン</th>
-		</tr>
-	</table>
+		<!-- JavaScriptの読み込み -->
 
-<p>------------------------------------------------------------------------------------------------------</p>
-		<tr>
-     		<td>
-		    	<input type="button" onclick= "location.href='./Employee_info_newadd.html' " >新規追加
-		   	</td>
+		<script type="text/javascript" src="jquery-1.10.2.js"></script>
+		<script type="text/javascript" src="Employee_info.js"></script>
+		<!-- <script type="text/javascript" src="Employee_info_edit.js"></script>-->
+	</head>
 
-     		<td>
-	     	  	<input type="button" onclick= "location.href='./Employee_info_search.html' " >検索
-		    </td>
-		</tr>
-</body>
+	<body>
+		<h1>社員一覧：</h1>
+		<table id = empTable>
+			<tr><!-- テーブルヘッダー -->
+				<th>社員ID</th>
+				<th>名前</th>
+				<th>ボタン</th>
+			</tr>
+		</table>
+
+		<p>------------------------------------------------------------------------------------------------------</p>
+
+		<input type="button" onclick= "location.href='./Employee_info_newadd.html' " >新規追加
+		<input type="button" onclick= "location.href='./Employee_info_search.html' " >検索
+
+	</body>
 </html>

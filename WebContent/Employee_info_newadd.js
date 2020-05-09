@@ -139,7 +139,7 @@ var edit_button = function(){
 				data : requestQuery,
 
 				success : function() {
-
+					location.reload();
 					//console.log(pw);
 				},
 				error : function(XMLHttpRequest, textStatus, errorThrown) {

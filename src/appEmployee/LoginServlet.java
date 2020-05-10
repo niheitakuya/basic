@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * Servlet implementation class login_Servlet
  */
@@ -32,8 +34,9 @@ public class LoginServlet extends HttpServlet {
     }
 
 
-    private final String id =  "idid";
-    private final String pass =  "passpass";
+   // private final String id =  "idid";
+   // private final String passcode =  "aaaa";
+    LoginPass lp1 = new LoginPass();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,11 +48,9 @@ public class LoginServlet extends HttpServlet {
 
 		String ID = request.getParameter("emp");
 		String password = request.getParameter("pass");
-		 //String aa = "aaa";
 		System.out.println(ID);
 		System.out.println(password);
 		//System.out.println(id);
-
 
 		//String id = getこれをもらう
 
@@ -83,13 +84,13 @@ public class LoginServlet extends HttpServlet {
 				"PASS \n" +
 				"where 1=1 \n" +
 				"and EMP_INFO.EMPID=pass.EMPID \n" +
-				"and EMP_INFO.EMPID = 'EMP0000     ' \n";
+				"and EMP_INFO.EMPID = '"+ID+"     ' \n";
 
 		System.out.println(sql);
 
 
 		//リストの作成
-		List <emp> empList =  new ArrayList<>();
+		List <LoginPass> PassList =  new ArrayList<>();
 
 		// エラーが発生するかもしれない処理はtry-catchで囲みます
 		// この場合はDBサーバへの接続に失敗する可能性があります
@@ -110,14 +111,22 @@ public class LoginServlet extends HttpServlet {
 			// 次の行がないときはfalseになります
 
 			while (rs1.next()) {
-				emp e1 = new emp();
-				//System.out.println(e1);
-				e1.setEmpId(rs1.getString("eie"));
-				e1.setEmpName(rs1.getString("ein"));
-				empList.add(e1);
+
+				System.out.println(lp1);
+
+				lp1.setEmpId(rs1.getString("eie"));
+				lp1.setEmpName(rs1.getString("ein"));
+				lp1.setPass(rs1.getString("ppa"));
+				lp1.setPosition(rs1.getString("ppo"));
+
+				PassList.add(lp1);
+
 				System.out.println("サーブレット");
-				System.out.println(e1.getEmpId());
-				System.out.println(e1.getEmpName());
+				System.out.println(lp1.getEmpId());
+				System.out.println(lp1.getEmpName());
+				System.out.println(lp1.getPass());
+				System.out.println(lp1.getPosition());
+
 			}
 
 		} catch (Exception e) {
@@ -125,33 +134,39 @@ public class LoginServlet extends HttpServlet {
 		}
 
 
-
-
-
-
-
 		//パスワードの判定
+		//ID、passwordは入力されたもの
+//		System.out.println(password.equals(passcode));
 
-//		if(password.equals(pass)&&ID.equals(id)){//nullだとエラーになる。
-//			session.setAttribute("login", "ok");//渡す
-//			pw.append(new ObjectMapper().writeValueAsString("ログイン完了。"));
-//			System.out.println("ログイン成功！");
+//		System.out.println(passcode);
+//		System.out.println(password);
+
+
 //
-//		}else{
-//			pw.append(new ObjectMapper().writeValueAsString("ログイン不正。"));
-//			System.out.println("ログイン失敗！");
-//		};
+		System.out.println(ID);
+		System.out.println(lp1.getEmpId());
+		String sqlID = lp1.getEmpId();
+        System.out.println("ID比較＊"+ID.trim().equals(sqlID.trim()));
 
+        System.out.println(password);
+		System.out.println(lp1.getPass());
+		String sqlPass = lp1.getPass();
+
+		System.out.println("pass比較＊"+password.trim().equals(sqlPass.trim()));
+
+
+		if(ID.equals(sqlID.trim())&&password.equals(sqlPass.trim())){
+			session.setAttribute("login", "ok");//渡す
+			pw.append(new ObjectMapper().writeValueAsString(PassList));
+			System.out.println("ログイン成功！");
+		}else{
+			pw.append(new ObjectMapper().writeValueAsString("ログイン不正"));
+			System.out.println("ログイン失敗！");
+		};
+
+		//pw.append(new ObjectMapper().writeValueAsString(PassList));
 
 	}//doGet関数の最後
-
-
-
-
-
-
-
-
 
 
 	/**

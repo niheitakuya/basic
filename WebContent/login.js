@@ -37,12 +37,13 @@ function password_button(){
 
 		success : function(pw) {
 			console.log(pw);
-			if(pw === 'ログイン完了。'){
-			console.log('LoginServletから帰ってきた')
-			window.location.href='./Employee_info.html';
-			}else if(pw === "ログイン不正。" ){
+
+			if(pw === 'ログイン不正'){
+			console.log('ログインできません')
+			window.location.href='./NotLogin.html';
+			}else {
 				console.log('LoginServletから帰ってきた')
-				//window.location.href='./Employee_info.html';
+				window.location.href='./Employee_info.html';
 			};
 
 		},

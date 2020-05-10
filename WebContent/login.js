@@ -1,23 +1,17 @@
-/**
- *
- */
-function executeAjax(){
 
+function LoginButton(){
 	//パスワードボタンクリック時、password_button関数利用
-	$("#js-login-button").click(password_button);
+	$('#js-login-button').click(password_button);
 }
 
 $(document).ready(function () {
 	'use strict';
 	// 初期表示用
-	executeAjax();
-
+	LoginButton();
 });
 
 function password_button(){
 	console.log("ログインボタンを押しました。");
-
-
 
 	var empnum = $('#js-login-empnum').val();
 	console.log(empnum);
@@ -41,8 +35,8 @@ function password_button(){
 			if(pw === 'ログイン不正'){
 			console.log('ログインできません')
 			window.location.href='./NotLogin.html';
-			}else {
-				console.log('LoginServletから帰ってきた')
+			}else{
+				console.log('LoginServletから返ってきた')
 				window.location.href='./Employee_info.html';
 			};
 

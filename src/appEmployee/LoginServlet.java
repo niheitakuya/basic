@@ -84,7 +84,7 @@ public class LoginServlet extends HttpServlet {
 				"PASS \n" +
 				"where 1=1 \n" +
 				"and EMP_INFO.EMPID=pass.EMPID \n" +
-				"and EMP_INFO.EMPID = '"+ID+"     ' \n";
+				"and EMP_INFO.EMPID = '"+ID+"' \n";
 
 		System.out.println(sql);
 
@@ -146,16 +146,19 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(ID);
 		System.out.println(lp1.getEmpId());
 		String sqlID = lp1.getEmpId();
-        System.out.println("ID比較＊"+ID.trim().equals(sqlID.trim()));
+     //   System.out.println("ID比較＊"+ID.trim().equals(sqlID.trim()));
 
         System.out.println(password);
 		System.out.println(lp1.getPass());
 		String sqlPass = lp1.getPass();
 
-		System.out.println("pass比較＊"+password.trim().equals(sqlPass.trim()));
+	//	System.out.println("pass比較＊"+password.trim().equals(sqlPass.trim()));
 
 
-		if(ID.equals(sqlID.trim())&&password.equals(sqlPass.trim())){
+		if(ID == null || password == null){
+			pw.append(new ObjectMapper().writeValueAsString("ログイン不正"));
+			System.out.println("ログイン失敗！");
+		}else if(ID.equals(sqlID.trim())&&password.equals(sqlPass.trim())){
 			session.setAttribute("login", "ok");//渡す
 			pw.append(new ObjectMapper().writeValueAsString(PassList));
 			System.out.println("ログイン成功！");

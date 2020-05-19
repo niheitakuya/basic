@@ -36,7 +36,13 @@ public class LogoutServlet extends HttpServlet {
 		response.setContentType("text/html; charset=Windows-31J");
 
 		HttpSession session = request.getSession();
-		session.removeAttribute("login");
+		session.removeAttribute("ID");
+		session.removeAttribute("Name");
+		session.removeAttribute("Pass");
+		session.removeAttribute("Position");
+
+
+
 
 		PrintWriter pw = response.getWriter();
 		pw.append(new ObjectMapper().writeValueAsString("ログアウトok!。"));

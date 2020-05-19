@@ -2,40 +2,37 @@
  *
  */
 
-
-
-// AjaxでJSONを取得する
-function executeAjax () {
+$(document).ready(function () {
 	'use strict';
+	// 更新ボタンにイベント設定
+	$('#searchBtn').bind('click',executeAjax);
+	$('#js-serchButton').click(serchButton);
+});
 
-	// ?以降のパラメータを取得
-	// 今回で言うとhttp://localhost:8080/wt1/hobby.html?q=0001でいう0001が取得される
-	var parameter  = location.search.substring( 1, location.search.length );
-	parameter = decodeURIComponent( parameter );
-	parameter = parameter.split('=')[1];
 
-	// --------------- TODO 編集ここから---------------
+var serchButton = function(){
+	console.log('ボタンを押しました');
+	var ID = $('#js-id').val();
+	var name = $('#js-name').val();
+	var department = $('#department').val();
+	console.log(ID);
+	console.log(name);
+	console.log(department);
+
 	var requestQuery = {
-		shainId : parameter
+		ID : ID,
+		name:name,
+		department:department
 	};
+
 	$.ajax({
 		Type : 'GET',
-		url : '/Employee_info/a',//サーブレットを確認
+		url : '/Employee_info/abb',//サーブレットを確認
 		dataType : 'json',
 		data : requestQuery,
+		
 		success : function(pw) {
 			console.log(pw);
-
-			for(var i = 0;i<pw.length; i++){
-				var pwemp = pw[i];
-				//var a = onclick= "location.href='./Employee_info_search.html' "
-				var edit ='<td><input type="button"   >編集</input></td>'
-				var del= ' <td><input type="button"  >削除</input></td>'
-				//$('#empTable').append('<tr>'+'<td>'+(i+1)+'</td>'+'<td>'+pwemp.empId+'</td>' +'<td>'+pwemp.empName+'</td>' +'</tr>');
-				$('#empTable').append('<tr>'+'<td>'+pwemp.empId+'</td>'+'<td>'+pwemp.empName+'</td>'+edit +del+'</tr>');
-
-			}
-
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			// サーバーとの通信に失敗した時の処理
@@ -44,17 +41,4 @@ function executeAjax () {
 		}
 	});
 
-	// ---------------ここまで---------------
-
 }
-
-$(document).ready(function () {
-	'use strict';
-
-	// 初期表示用
-	executeAjax();
-
-	// 更新ボタンにイベント設定
-	$('#searchBtn').bind('click',executeAjax);
-
-});

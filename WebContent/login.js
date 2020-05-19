@@ -4,6 +4,7 @@ function LoginButton(){
 	$('#js-login-button').click(password_button);
 }
 
+
 $(document).ready(function () {
 	'use strict';
 	// 初期表示用
@@ -19,7 +20,6 @@ function password_button(){
 	var password = $('#js-login-password').val();
 	console.log(password);
 
-
 	var rq = {emp:empnum,
 			pass:password};
 
@@ -33,8 +33,8 @@ function password_button(){
 			console.log(pw);
 
 			if(pw === 'ログイン不正'){
-			console.log('ログインできません')
-			window.location.href='./NotLogin.html';
+				console.log('ログインできません')
+				window.location.href='./NotLogin.html';
 			}else{
 				console.log('LoginServletから返ってきた')
 				window.location.href='./Employee_info.html';

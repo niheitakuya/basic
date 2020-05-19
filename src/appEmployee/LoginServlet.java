@@ -18,19 +18,13 @@ import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * Servlet implementation class login_Servlet
- */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public LoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 
@@ -38,21 +32,14 @@ public class LoginServlet extends HttpServlet {
    // private final String passcode =  "aaaa";
     LoginPass lp1 = new LoginPass();
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+
 		response.setContentType("text/html; charset=Windows-31J");
 
 		String ID = request.getParameter("emp");
 		String password = request.getParameter("pass");
 		System.out.println(ID);
 		System.out.println(password);
-		//System.out.println(id);
-
-		//String id = getこれをもらう
 
 		PrintWriter pw = response.getWriter();
 
@@ -75,19 +62,18 @@ public class LoginServlet extends HttpServlet {
 		String pass = "webapp";
 
 		String sql = "select \n" +
-				"EMP_INFO.EMPID eie, \n" +
-				"EMP_INFO.NAME ein, \n" +
-				"pass.PASS ppa, \n" +
-				"pass.POSITION ppo \n" +
-				"from \n" +
-				"EMP_INFO, \n" +
-				"PASS \n" +
-				"where 1=1 \n" +
-				"and EMP_INFO.EMPID=pass.EMPID \n" +
-				"and EMP_INFO.EMPID = '"+ID+"' \n";
+					"EMP_INFO.EMPID eie, \n" +
+					"EMP_INFO.NAME ein, \n" +
+					"pass.PASS ppa, \n" +
+					"pass.POSITION ppo \n" +
+					"from \n" +
+					"EMP_INFO, \n" +
+					"PASS \n" +
+					"where 1=1 \n" +
+					"and EMP_INFO.EMPID=pass.EMPID \n" +
+					"and EMP_INFO.EMPID = '"+ID+"' \n";
 
 		System.out.println(sql);
-
 
 		//リストの作成
 		List <LoginPass> PassList =  new ArrayList<>();
@@ -142,7 +128,6 @@ public class LoginServlet extends HttpServlet {
 //		System.out.println(password);
 
 
-//
 		System.out.println(ID);
 		System.out.println(lp1.getEmpId());
 		String sqlID = lp1.getEmpId();
@@ -155,29 +140,44 @@ public class LoginServlet extends HttpServlet {
 	//	System.out.println("pass比較＊"+password.trim().equals(sqlPass.trim()));
 
 
-		if(ID == null || password == null){
-			pw.append(new ObjectMapper().writeValueAsString("ログイン不正"));
-			System.out.println("ログイン失敗！");
-		}else if(ID.equals(sqlID.trim())&&password.equals(sqlPass.trim())){
-			session.setAttribute("login", "ok");//渡す
+//		if(ID == null || password == null){
+//			pw.append(new ObjectMapper().writeValueAsString("ログイン不正"));
+//			System.out.println("ログイン失敗！");
+//		}else if(ID.equals(sqlID.trim())&&password.equals(sqlPass.trim())){
+//			session.setAttribute("ID",lp1.getEmpId() );//ID
+//			session.setAttribute("Name", lp1.getEmpName());//Name
+//			session.setAttribute("Pass", lp1.getPass());//Pass
+//			session.setAttribute("Position", lp1.getPosition());//Position
+//
+//			pw.append(new ObjectMapper().writeValueAsString(PassList));
+//			System.out.println("ログイン成功！");
+//		}else{
+//			pw.append(new ObjectMapper().writeValueAsString("ログイン不正"));
+//			System.out.println("ログイン失敗！");
+//		};
+
+
+		if(ID.equals(sqlID.trim())&&password.equals(sqlPass.trim())){
+			
+			session.setAttribute("ID",lp1.getEmpId() );//ID
+			session.setAttribute("Name", lp1.getEmpName());//Name
+			session.setAttribute("Pass", lp1.getPass());//Pass
+			session.setAttribute("Position", lp1.getPosition());//Position
+
 			pw.append(new ObjectMapper().writeValueAsString(PassList));
+			
 			System.out.println("ログイン成功！");
 		}else{
 			pw.append(new ObjectMapper().writeValueAsString("ログイン不正"));
+			
 			System.out.println("ログイン失敗！");
-		};
-
-		//pw.append(new ObjectMapper().writeValueAsString(PassList));
+		}
 
 	}//doGet関数の最後
 
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

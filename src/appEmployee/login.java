@@ -47,11 +47,11 @@ public class login extends HttpServlet {
 
 		String LoginStatus = (String) session.getAttribute("login");//キーからvalue
 
-		
+
 		if(LoginStatus == null){
-		
+
 		}else{
-			
+
 			//社員一覧表示
 		}
 
@@ -62,7 +62,7 @@ public class login extends HttpServlet {
 
 		PrintWriter pw = response.getWriter();
 
-		if(status == null) {
+		if(LoginStatus == null) {
 			if(loginRequest != null &&  loginRequest.equals("login")) {
 				session.setAttribute("login", "ok");
 				pw.append(new ObjectMapper().writeValueAsString("ログイン完了。"));

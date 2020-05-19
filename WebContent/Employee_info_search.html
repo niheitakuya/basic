@@ -3,24 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="jquery-1.10.2.js"></script>
+<script type="text/javascript" src="Employee_info_search.js"></script>
 </head>
 <body>
 <h1>条件を指定して社員情報を検索します</h1>
 <div>所属部署：</div>
-<select>
-<option>a</option>
-<option>b</option>
-<!-- //ここに部署を差し込む
- --></select>
+<select id = 'department'>
+<option value = a>a</option>
+<option value = b>b</option>
+</select>
 
 
 <div>社員ID：</div>
-<input type="text" name="">
+<input type="text" id = 'js-id'>
 
 <div>名前に含む文字：</div>
-<input type="text" name="">
+<input type="text" id = 'js-name'>
 
-<button type="button"  >検索</button>
+<button id = "js-serchButton"  >検索</button>
 
 </body>
 </html>

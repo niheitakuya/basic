@@ -1,3 +1,7 @@
+
+
+
+
 // AjaxでJSONを取得する
 function executeAjax () {
 	'use strict';
@@ -11,7 +15,11 @@ function executeAjax () {
 			console.log('success : functionの後');
 			console.log(pw);
 			console.log("pwは"+pw);
-			console.log(pwemp);
+
+			if(pw === "ログイン前"){
+				console.log("a");
+				document.location.href = "login.html";
+			}
 
 			for(var i = 0;i<pw.length; i++){
 				var pwemp = pw[i];
@@ -57,47 +65,56 @@ function EditEmp(i){
 			success : function(pw) {
 
 
-				console.log('前:'+pw);//コンソールでは、後[object Object]となるのか？
-				console.log(pw);//連想配列の中身確認
+				if(pw === "Memberのため編集できません"){
+					console.log(pw);
+					//編集ページへ移動
+					window.location.href = "./notEdit.html";//編集ページへ移動
 
 
-				console.log('--------------');
-				var pwemp1 = pw[0];//配列のインデックスを指定する必要がある。
-				console.log(pwemp1);
+				}else{
+					console.log('前:'+pw);//コンソールでは、後[object Object]となるのか？
+					console.log(pw);//連想配列の中身確認
 
-				window.location.href = "./Employee_info_edit.html?q="
-																+pwemp1.empId
 
-																+"&name="
-																+pwemp1.empName
+					console.log('--------------');
+					var pwemp1 = pw[0];//配列のインデックスを指定する必要がある。
+					console.log(pwemp1);
 
-																+"&age="
-																+pwemp1.empAge
+					window.location.href = "./Employee_info_edit.html?q="
+																	+pwemp1.empId
 
-																+"&sex="
-																+pwemp1.empSex
+																	+"&name="
+																	+pwemp1.empName
 
-																+"&postcode="
-																+pwemp1.empPostcode
+																	+"&age="
+																	+pwemp1.empAge
 
-																+"&pref="
-																+pwemp1.empPref
+																	+"&sex="
+																	+pwemp1.empSex
 
-																+"&address="
-																+pwemp1.empAddress
+																	+"&postcode="
+																	+pwemp1.empPostcode
 
-																+"&department="
-																+pwemp1.empDepartname
+																	+"&pref="
+																	+pwemp1.empPref
 
-																+"&startdate="
-																+pwemp1.empStartdate
+																	+"&address="
+																	+pwemp1.empAddress
 
-																+"&Retirementdate="
-																+pwemp1.empRetirementdate
-																;
+																	+"&department="
+																	+pwemp1.empDepartname
 
-														//編集ページへ移動
-															//window.location.href = "./Employee_info_edit.html?q="+pwemp1.empId;//編集ページへ移動
+																	+"&startdate="
+																	+pwemp1.empStartdate
+
+																	+"&Retirementdate="
+																	+pwemp1.empRetirementdate
+																	;
+
+																}
+
+
+
 
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -125,7 +142,16 @@ $.ajax({
 	data : rq,
 
 	success : function(pw) {
+		console.log(pw);
+
 		console.log('deleteEmpのajax:'+ pw);
+
+		if(pw === "Memberのため削除できません"){
+			console.log("aaa");
+			window.location.href='./notDel.html';
+			console.log("aaa");
+		}
+
 		//location.reload();//更新機能
 	},
 	error : function(XMLHttpRequest, textStatus, errorThrown) {
@@ -143,5 +169,30 @@ $(document).ready(function () {
 	'use strict';
 	// 初期表示用
 	executeAjax();
+	$('#js-logout').click(Logout);
 
 });
+
+function Logout(){
+	console.log("ログアウトボタンを押しました");
+
+
+	$.ajax({
+		Type : 'GET',
+		url : '/Employee_info/LogoutServlet',  //URLを作成、サーブレットを確認
+		dataType : 'json',
+
+		success : function(pw) {
+			console.log(pw);
+			window.location.href='./login.html';
+
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			// サーバーとの通信に失敗した時の処理
+			alert('データの通信に失敗しました_Employee_info.js');
+			console.log(errorThrown)
+		}
+	});//ここまでAjax
+
+}//Logout関数の最後
+

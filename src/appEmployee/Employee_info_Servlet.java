@@ -31,12 +31,14 @@ public class Employee_info_Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		//文字化け防止
 		response.setContentType("text/html; charset=Windows-31J");
+		
 		PrintWriter pw = response.getWriter();//出力ストリーム
 		HttpSession session = request.getSession(true);//sessionの生成,これが準備、一番最初
-		String LoginStatus = (String) session.getAttribute("login");//キーからvalue受け取る
+		String LoginStatus = (String) session.getAttribute("ID");//キーからvalue受け取る
 
 		if(LoginStatus == null){
 			pw.append(new ObjectMapper().writeValueAsString("ログイン前"));
+			
 		}else{
 
 			//社員一覧表示を書く。
@@ -106,7 +108,6 @@ public class Employee_info_Servlet extends HttpServlet {
 
 
 			// JSONで出力する
-			//pw.println("a");
 			pw.append(new ObjectMapper().writeValueAsString(empList));
 			System.out.println(empList);
 		}

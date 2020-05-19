@@ -31,10 +31,13 @@ public class Employee_info_search_Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		//文字化け防止
 		response.setContentType("text/html; charset=Windows-31J");
-		// TODO 必須機能「趣味参照機能」
-		// アクセス元のHTMLでitemCdに設定された値を取得して、String型の変数itemCdに代入
-		String shainId = request.getParameter("shainId");
-		//System.out.println("shainId=" + shainId);
+
+		String ID = request.getParameter("ID");
+		System.out.println("ID=" + ID);
+		String name = request.getParameter("name");
+		System.out.println("name=" + name);
+		String department = request.getParameter("department");
+		System.out.println("shainId=" + department);
 
 		// JDBCドライバの準備
 		try {
@@ -52,26 +55,22 @@ public class Employee_info_search_Servlet extends HttpServlet {
 		String user = "webapp";
 		String pass = "webapp";
 
-		// 実行するSQL文
-//		String sql ="select ef.EMPID ,ef.NAME " +
-//					"from DEPART_KBN dk,EMP_INFO ef " +
-//					"where 1=1,and dk.DEPARTID = ef.DEPARTID and ef.EMPID = 'EMP0001'" +
-//					"order by  ef.EMPID ";
-//
-		String sql = "select \n" +
-				"ef.EMPID ee \n" +
-				",ef.NAME en \n" +
-				"from \n" +
-				"DEPART_KBN dk \n" +
-				",EMP_INFO ef \n" +
-				"where 1=1 \n" +
-				"and dk.DEPARTID = ef.DEPARTID \n" +
-				//"and ef.EMPID = 'EMP0002'  \n" +
-				"order by  \n" +
-				"ef.EMPID \n" +
-				" \n";
 
-		//System.out.println(sql);
+		String sql = "select \n" +
+				"ei.EMPID , \n" +
+				"ei.NAME, \n" +
+				"ei.AGE, \n" +
+				"ei.SEX, \n" +
+				"dk.DEPARTNAME \n" +
+				"from \n" +
+				"EMP_INFO ei, \n" +
+				"DEPART_KBN dk \n" +
+				"where 1 =1 \n" +
+				"and ei.EMPID = '"+ID+"'  \n" +
+				"and ei.NAME = '"+name+"' \n" +
+				"and ei.DEPARTID = dk.DEPARTID \n";
+
+		System.out.println(sql);
 
 
 		//リストの作成
@@ -97,16 +96,18 @@ public class Employee_info_search_Servlet extends HttpServlet {
 			while (rs1.next()) {
 				emp e1 = new emp();
 				//System.out.println(e1);
-				e1.setEmpId(rs1.getString("ee"));
-				e1.setEmpName(rs1.getString("en"));
+				e1.setEmpId(rs1.getString("EMPID"));
+				e1.setEmpName(rs1.getString("NAME"));
+				e1.setEmpAge(rs1.getString("age"));
+				e1.setEmpSex(rs1.getString("sex"));
+				e1.setEmpDepartname(rs1.getString("DEPARTNAME"));
+
 				empList.add(e1);
 				System.out.println(e1.getEmpId());
 				System.out.println(e1.getEmpName());
-
-//				h1.setHobby(rs1.getString("mhn")); // SQL文のエイリアス
-//				h1.setHobbyCategory(rs1.getString("mcn"));// Item型の変数itemに商品名をセット
-//				hobbyList.add(h1);
-//				System.out.println(h1.getHobby());
+				System.out.println(e1.getEmpAge());
+				System.out.println(e1.getEmpSex());
+				System.out.println(e1.getEmpDepartname());
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(String.format("検索処理の実施中にエラーが発生しました。詳細：[%s]", e.getMessage()), e);
